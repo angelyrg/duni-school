@@ -109,9 +109,12 @@
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
-                  <a href="#">
+                  <!-- Button trigger modal -->
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#password-forgot" >
                     <small>¿Olvidaste tu contraseña?</small>
                   </a>
+
+
                 </div>
                 <div class="mb-3">
                   <div class="form-check">
@@ -138,6 +141,27 @@
     </div>
 
     <!-- / Content -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="password-forgot" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel1">¡Atención!</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+          </div>
+          <div class="modal-body">
+            <p>Para restablecer tu contraseña comunícaate con el administrador del sistema.</p>              
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                  Aceptar
+              </button>
+          </div>
+      </div>
+  </div>
+</div>
 
 
     <!-- Core JS -->
