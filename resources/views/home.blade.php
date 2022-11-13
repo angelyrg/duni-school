@@ -9,7 +9,7 @@
         <div class="d-flex align-items-end row">
           <div class="col-sm-7">
             <div class="card-body">
-              <h5 class="card-title text-primary">Bienvenido {{Auth::user()->name}}! 🎉</h5>
+              <h5 class="card-title text-primary">Bienvenid@ {{Auth::user()->name}}! 🎉</h5>
               <p class="mb-4">
                 Sistema de Gestión de <span class="fw-bold">Matrículas y Pagos</span> para la Institución Educativa ...
               </p>

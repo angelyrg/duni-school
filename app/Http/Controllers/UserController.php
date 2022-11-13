@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserStoreRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -38,7 +40,25 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nombre_usuario' => 'required|string',
+            'username' => 'required',
+            'password' => 'required|string',
+            'user_rol' => 'required|string',
+        ]);
+
+        $user = new User();
+        $user->name = $request->nombre_usuario;
+        $user->username = $request->username;
+        $user->password = Hash::make($request->password);
+        $user->rol = $request->user_rol;
+
+        $user->save();
+
+        return redirect()->route('users.index')->with('success', 'Usuario '.$request->nombre_usuario.' registrado correctamente.');
+
+        //return $user;
+
     }
 
     /**
@@ -58,9 +78,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $usuario)
     {
-        //
+        return view("usuarios.edit", compact('usuario'));
     }
 
     /**
@@ -70,9 +90,26 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $usuario)
     {
-        //
+        
+        //$usuario = User::find($id);
+
+        $this->validate($request, [
+            'nombre_usuario' => 'required|string',
+            'username' => 'required|string',
+            'user_rol' => 'required|string',
+        ]);
+
+        $usuario->name = $request->nombre_usuario;
+        $usuario->username = $request->username;
+        //$user->password = $user->password;
+        $usuario->rol = $request->user_rol;
+
+        $usuario->save();
+        
+        return redirect()->route('users.index')->with('success', 'Usuario '.$request->name.' actualizado correctamente.');
+
     }
 
     /**
@@ -81,8 +118,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $usuario)
     {
         //
+        $usuario->delete();
+        
+        return redirect()->route('users.index')->with('success', 'Usuario eliminado correctamente.'); 
     }
 }
