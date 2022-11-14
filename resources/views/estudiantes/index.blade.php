@@ -28,7 +28,7 @@
                                 <th>DNI</th>                           
                                 <th>Nombres y apellidos</th>
                                 <th>Género</th>
-                                <th>Estado de Matrícula</th>
+                                
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -44,8 +44,9 @@
                                         <td>{{$estudiante->id}}</td>
                                         <td>{{$estudiante->dni_estudiante}}</td>
                                         <td>{{$estudiante->nombres_estudiante." ".$estudiante->apellidos_estudiante}}</td>
-                                        <td>M</td> {{-- <td>{{$estudiante->genero_estudiante}}</td> --}} 
-                                        <td><span class="badge bg-label-warning me-1">En proceso</span></td>
+                                        <td>{{$estudiante->genero}}</td>
+                                        
+                                        
                                         <td>                                  
                                             <a href="{{route('estudiantes.edit', $estudiante->id)}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-edit-alt' ></i></a>
                                             <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$estudiante->id}}">

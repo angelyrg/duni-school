@@ -43,20 +43,19 @@
                         </div>
                     </div>
 
-
-                    {{-- <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Banco</label>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Género</label>
                         <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                                <span class="input-group-text"><i class='bx bxs-bank' ></i></span>
-                                <select name="ciclo" class="form-select" required>
+                                <span class="input-group-text"><i class='bx bx-select-multiple' ></i></span>
+                                <select name="genero" class="form-select" required>
                                     <option selected disabled value="">Seleccione...</option>
-                                    <option>Caja Huancayo</option>
-                                    <option>Tesorería Colegio</option>                                    
+                                    <option>M</option>
+                                    <option>F</option>                                    
                                 </select>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
 
                     {{-- <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Código</label>
@@ -88,15 +87,6 @@
                         </div>
                     </div> --}}
 
-                    {{-- <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Motivo</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                                <span class="input-group-text"><i class='bx bx-align-left'></i></span>
-                                <textarea name="motivo"  cols="30" rows="2" class="form-control" placeholder="Motivo de la tutoría" required></textarea>                                                                       
-                            </div>
-                        </div>
-                    </div> --}}
 
                 </div>
                 <div class="modal-footer">

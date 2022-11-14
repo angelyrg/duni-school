@@ -64,7 +64,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.html" class="app-brand-link">
+            <a href="#" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <img width="50" src="../assets/img/logo.png" class="rounded" alt="">
               </span>
@@ -81,23 +81,37 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item active">
-              <a href="index.html" class="menu-link">
+              <a href="{{route('home')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
+                <div data-i18n="Analytics">Panel de control</div>
               </a>
             </li>
 
-    
 
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Opciones</span>
             </li>
+
+            <!-- Bancos -->
+            <li class="menu-item">
+              <a href="{{route('bancos.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-bank"></i>
+                <div data-i18n="Tables">Bancos</div>
+              </a>
+            </li>
             
             <!-- Estudintes -->
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="{{route('estudiantes.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-account"></i>
                 <div data-i18n="Tables">Estudiantes</div>
+              </a>
+            </li>
+            <!-- Estudintes -->
+            <li class="menu-item">
+              <a href="{{route('matriculas.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-archive"></i>
+                <div>Matrículas</div>
               </a>
             </li>
 
@@ -110,26 +124,28 @@
             </li>
 
             <!-- Grados/Secciones -->
-            <li class="menu-item">
+            {{-- <li class="menu-item">
               <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-chalkboard"></i>
                 <div data-i18n="Tables">Grados/Secciones</div>
               </a>
-            </li>
+            </li> --}}
 
-            <!-- Bancos -->
-            <li class="menu-item">
-              <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-bank"></i>
-                <div data-i18n="Tables">Bancos</div>
-              </a>
-            </li>
+            
             
             <!-- Apoderados -->
             <li class="menu-item">
               <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-face"></i>
                 <div data-i18n="Tables">Apoderados</div>
+              </a>
+            </li>
+
+            <!-- Apoderados -->
+            <li class="menu-item">
+              <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-file"></i>
+                <div data-i18n="Tables">Reportes</div>
               </a>
             </li>
 
@@ -152,11 +168,11 @@
                       <div data-i18n="Account">Gestión de usuarios</div>
                     </a>
                   </li>
-                  <li class="menu-item">
+                  {{-- <li class="menu-item">
                     <a href="#" class="menu-link">
                       <div data-i18n="Notifications">Restaurar contraseñas</div>
                     </a>
-                  </li>
+                  </li> --}}
                 </ul>
               </li>
             @endif
@@ -321,5 +337,7 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    @yield('js')
   </body>
 </html>

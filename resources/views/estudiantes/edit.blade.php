@@ -52,6 +52,20 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Género</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text"><i class='bx bx-select-multiple' ></i></span>
+                                <select name="genero" class="form-select" required>
+                                    <option selected disabled value="">Seleccione...</option>
+                                    <option @if($estudiante->genero=='M'){{'selected'}}@endif>M</option>
+                                    <option @if($estudiante->genero=='F'){{'selected'}}@endif>F</option>                                    
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                       
                       
                   </div>

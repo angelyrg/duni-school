@@ -45,9 +45,8 @@
                                         <td>{{$usuario->name}}</td>
                                         <td>{{$usuario->username}}</td>
                                         <td>{{$usuario->rol}}</td>
-                                        <td><span class="badge bg-label-success me-1">Activo</span></td>
+                                        {{-- <td><span class="badge bg-label-danger me-1"></span></td> --}}
                                         <td>
-                                  
                                             <a href="{{route('users.edit', $usuario->id)}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-edit-alt' ></i></a>
                                             <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$usuario->id}}">
                                                 <i class='bx bx-trash'></i>

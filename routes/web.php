@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\BancoController;
 use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MatriculaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +33,6 @@ Route::view('home', 'home')->name('home')->middleware('auth');
 
 Route::resource('usuarios', UserController::class)->names('users')->middleware('auth.admin');
 Route::resource('estudiantes', EstudianteController::class)->names('estudiantes')->middleware('auth');
+Route::post('estudiantes/getStudent', [EstudianteController::class, 'getStudentbyDNI']);
+Route::resource('matriculas', MatriculaController::class)->names('matriculas')->middleware('auth');
+Route::resource('bancos', BancoController::class)->names('bancos')->middleware('auth');

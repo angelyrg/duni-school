@@ -148,11 +148,11 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel1">¡Atención!</h5>
+              <h5 class="modal-title" id="exampleModalLabel1"><i class='bx bx-info-circle'></i> ¡Atención!</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
           </div>
           <div class="modal-body">
-            <p>Para restablecer tu contraseña comunícaate con el administrador del sistema.</p>              
+            <p>Para restablecer tu contraseña comunícate con el administrador del sistema.</p>              
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">

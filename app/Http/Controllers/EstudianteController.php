@@ -42,6 +42,7 @@ class EstudianteController extends Controller
             'dni_estudiante' => 'required|digits:8|max:8',
             'nombres_estudiante' => 'required|string',
             'apellidos_estudiante' => 'required|string',
+            'genero' => 'required|string',
         ]);
 
 
@@ -49,6 +50,7 @@ class EstudianteController extends Controller
         $user->dni_estudiante = $request->dni_estudiante;
         $user->nombres_estudiante = $request->nombres_estudiante;
         $user->apellidos_estudiante = $request->apellidos_estudiante;
+        $user->genero = $request->genero;
         $user->save();
 
         return redirect()->route('estudiantes.index')->with('success', 'Estudiante '.$request->nombre_usuario.' agregado exitosamente.');
@@ -91,11 +93,13 @@ class EstudianteController extends Controller
             'dni_estudiante' => 'required|digits:8|max:8',
             'nombres_estudiante' => 'required|string',
             'apellidos_estudiante' => 'required|string',
+            'genero' => 'required|string',
         ]);
 
         $estudiante->dni_estudiante = $request->dni_estudiante;
         $estudiante->nombres_estudiante = $request->nombres_estudiante;
         $estudiante->apellidos_estudiante = $request->apellidos_estudiante;
+        $estudiante->genero = $request->genero;
         $estudiante->save();
         
         return redirect()->route('estudiantes.index')->with('success', 'Estudiante '.$request->nombres_estudiante.' actualizado exitosamente.');
@@ -114,4 +118,11 @@ class EstudianteController extends Controller
         return redirect()->route('estudiantes.index')->with('success', 'Estudiante eliminado exitosamente.'); 
 
     }
+
+    public function getStudentbyDNI(Request $request){
+        $dni = $request->dni;
+        $estudiante = Estudiante::where('dni_estudiante', $dni)->get();  
+        return response()->json($estudiante);
+     }
+
 }
