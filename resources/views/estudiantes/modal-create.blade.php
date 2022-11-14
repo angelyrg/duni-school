@@ -32,7 +32,6 @@
                         </div>
                     </div>
 
-
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Apellidos</label>
                         <div class="col-sm-10">
@@ -57,36 +56,15 @@
                         </div>
                     </div>
 
-                    {{-- <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Código</label>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Fecha de nacimiento</label>
                         <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                                <span class="input-group-text"><i class='bx bx-credit-card-front' ></i></span>
-                                <input type="text" name="codigo_matricula" class="form-control" maxlength="10" placeholder="Código de matrícula" required onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"/>
-                            </div>
-                        </div>
-                    </div> --}}
-                    
-                    {{-- <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Celular</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                                <span class="input-group-text"><i class='bx bx-phone' ></i></span>
-                                <input type="text" name="celular" class="form-control phone-mask" maxlength="9" minlength="9" placeholder="Número de celular" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"/>
+                                <span class="input-group-text"><i class='bx bxs-calendar' ></i></span>
+                                <input type="date" name="fecha_nacimiento" class="form-control" placeholder="Fecha de nacimiento" required/>
                             </div>
                         </div>
                     </div>
-
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Correo</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                                <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                                <input type="email" name="correo_institucional" class="form-control" placeholder="Correo institucional" />                                       
-                            </div>
-                        </div>
-                    </div> --}}
-
 
                 </div>
                 <div class="modal-footer">

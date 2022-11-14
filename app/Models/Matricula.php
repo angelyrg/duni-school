@@ -12,4 +12,8 @@ class Matricula extends Model
     public function estudiante(){
         return $this->belongsTo(Estudiante::class);
     }
+
+    public function apoderado(){
+        return $this->belongsTo(Apoderado::class);
+    }
 }

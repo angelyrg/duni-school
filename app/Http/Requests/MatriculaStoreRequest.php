@@ -24,14 +24,18 @@ class MatriculaStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'estudiante_id' => 'required',
+            'apoderado_id' => 'required',
+            'parentesco' => 'required|string',
             'nivel' => 'required|string',
             'grado' => 'required|string',
             'seccion' => 'required|string',
-            'monto' => 'required',
-            'banco' => 'required|string',
-            'dni_apoderado' => 'required|digits:8',
-            'nombres_apoderado' => 'required|string',
-            'apellidos_apoderado' => 'required|string',
+            'situacion' => 'required|string',
+            'procedencia' => 'required|string',
+            'matricula_costo' => 'required',
+            'mensualidad' => 'required',
+            'descuento' => 'required',
+            'dia_pago' => 'required|integer'
         ];
     }
 }

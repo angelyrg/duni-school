@@ -100,14 +100,23 @@
               </a>
             </li>
             
-            <!-- Estudintes -->
+            <!-- Estudiantes -->
             <li class="menu-item">
               <a href="{{route('estudiantes.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-user-account"></i>
                 <div data-i18n="Tables">Estudiantes</div>
               </a>
             </li>
-            <!-- Estudintes -->
+
+            <!-- Apoderados -->
+            <li class="menu-item">
+              <a href="{{route('apoderados.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-face"></i>
+                <div data-i18n="Tables">Apoderados</div>
+              </a>
+            </li>
+
+            <!-- Matrículas -->
             <li class="menu-item">
               <a href="{{route('matriculas.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-archive"></i>
@@ -133,13 +142,7 @@
 
             
             
-            <!-- Apoderados -->
-            <li class="menu-item">
-              <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-face"></i>
-                <div data-i18n="Tables">Apoderados</div>
-              </a>
-            </li>
+
 
             <!-- Apoderados -->
             <li class="menu-item">

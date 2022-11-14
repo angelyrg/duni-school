@@ -35,9 +35,9 @@ class MatriculaController extends Controller
      */
     public function create()
     {
-        $bancos = Banco::all();
+        //$bancos = Banco::all();
         $grados =  $this->grados;
-        return view("matriculas.create", compact('bancos', 'grados'));
+        return view("matriculas.create", compact( 'grados'));
     }
 
     /**
@@ -50,12 +50,23 @@ class MatriculaController extends Controller
     {
 
         $matricula = new Matricula();
-        $matricula->monto = $request->monto;
-        $matricula->apoderado = $request->nombres_apoderado." ".$request->apellidos_apoderado;
+        $matricula->estudiante_id = $request->estudiante_id;
+        $matricula->apoderado_id = $request->apoderado_id;
+        $matricula->parentesco = $request->parentesco;
         $matricula->nivel = $request->nivel;
         $matricula->grado = $request->grado;
         $matricula->seccion = $request->seccion;
-        $matricula->estudiante_id = $request->estudiante_id;        
+        
+        $matricula->situacion = $request->situacion;
+        $matricula->procedencia = $request->procedencia;
+        $matricula->ie_procedencia = $request->ie_procedencia;
+
+        $matricula->matricula_costo = $request->matricula_costo;
+        $matricula->mensualidad = $request->mensualidad;
+        $matricula->descuento = $request->descuento;
+        $matricula->dia_pago = $request->dia_pago;
+        $matricula->total = $request->mensualidad * 10;
+                
         
         $matricula->save();
 

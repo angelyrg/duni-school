@@ -15,9 +15,10 @@ class CreateApoderadosTable extends Migration
     {
         Schema::create('apoderados', function (Blueprint $table) {
             $table->id();
-            $table->string('dni_apoderado');
-            $table->string('nombres_apoderado');
-            $table->string('apellidos_apoderado');
+            $table->string('dni_apoderado', 8);
+            $table->string('nombres_apoderado', 50);
+            $table->string('apellidos_apoderado', 80);
+            $table->string('celular_apoderado', 9)->nullable();
         });
     }
 

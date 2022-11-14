@@ -24,10 +24,10 @@
                                 <th>ID</th>
                                 <th>Estudiante</th>                           
                                 <th>Nivel</th>
-                                <th>Grado</th>
-                                <th>Sección</th>
+                                <th>Aula</th>
                                 <th>Apoderado</th>
-                                <th>Monto</th>
+                                <th>Mensualidad</th>
+                                <th>Total</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -40,15 +40,15 @@
                                 @foreach ($matriculas as $matricula)
                                     <tr>
                                         <td>{{$matricula->id}}</td>
-                                        <td>{{$matricula->estudiante_id}}</td>
+                                        <td>{{$matricula->estudiante->nombres_estudiante.' '.$matricula->estudiante->apellidos_estudiante}}</td>
                                         <td>{{$matricula->nivel}}</td>
-                                        <td>{{$matricula->grado}}</td>
-                                        <td>{{$matricula->seccion}}</td>
-                                        <td>{{$matricula->apoderado}}</td>
-                                        <td>{{$matricula->monto}}</td>
+                                        <td>{{$matricula->grado.' '.$matricula->seccion}}</td>
+                                        <td>{{$matricula->apoderado->nombres_apoderado}}</td>
+                                        <td>{{$matricula->mensualidad}}</td>
+                                        <td>{{$matricula->total}}</td>
                                         
                                         <td>                                  
-                                            <a href="{{route('matriculas.edit', $matricula->id)}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-edit-alt' ></i></a>
+                                            {{-- <a href="{{route('matriculas.edit', $matricula->id)}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-edit-alt' ></i></a> --}}
                                             <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$matricula->id}}">
                                                 <i class='bx bx-trash'></i>
                                             </button>

@@ -43,6 +43,7 @@ class EstudianteController extends Controller
             'nombres_estudiante' => 'required|string',
             'apellidos_estudiante' => 'required|string',
             'genero' => 'required|string',
+            'fecha_nacimiento' => 'required',
         ]);
 
 
@@ -51,6 +52,7 @@ class EstudianteController extends Controller
         $user->nombres_estudiante = $request->nombres_estudiante;
         $user->apellidos_estudiante = $request->apellidos_estudiante;
         $user->genero = $request->genero;
+        $user->fecha_nacimiento = $request->fecha_nacimiento;
         $user->save();
 
         return redirect()->route('estudiantes.index')->with('success', 'Estudiante '.$request->nombre_usuario.' agregado exitosamente.');
@@ -123,6 +125,6 @@ class EstudianteController extends Controller
         $dni = $request->dni;
         $estudiante = Estudiante::where('dni_estudiante', $dni)->get();  
         return response()->json($estudiante);
-     }
+    }
 
 }

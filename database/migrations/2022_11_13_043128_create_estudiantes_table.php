@@ -19,7 +19,7 @@ class CreateEstudiantesTable extends Migration
             $table->string('nombres_estudiante');
             $table->string('apellidos_estudiante');
             $table->string('genero', 1);
-
+            $table->date('fecha_nacimiento');
             $table->timestamps();
         });
     }

@@ -28,7 +28,7 @@
                                 <th>DNI</th>                           
                                 <th>Nombres y apellidos</th>
                                 <th>Género</th>
-                                
+                                <th>Fecha de nacimiento</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -45,7 +45,7 @@
                                         <td>{{$estudiante->dni_estudiante}}</td>
                                         <td>{{$estudiante->nombres_estudiante." ".$estudiante->apellidos_estudiante}}</td>
                                         <td>{{$estudiante->genero}}</td>
-                                        
+                                        <td>{{$estudiante->fecha_nacimiento}}</td>
                                         
                                         <td>                                  
                                             <a href="{{route('estudiantes.edit', $estudiante->id)}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-edit-alt' ></i></a>

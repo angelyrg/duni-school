@@ -20,17 +20,24 @@ class CreateMatriculasTable extends Migration
             $table->unsignedBigInteger('estudiante_id');
             $table->foreign('estudiante_id')->references('id')->on('estudiantes');
 
+            $table->unsignedBigInteger('apoderado_id');
+            $table->foreign('apoderado_id')->references('id')->on('apoderados');
+
             $table->string('nivel', 10);
             $table->string('grado', 10);
             $table->string('seccion', 10);
-            //$table->double('monto', 8, 2);
             
+            $table->string('situacion', 10);
+            $table->string('procedencia', 50);
+            $table->string('ie_procedencia', 150)->nullable();
+            
+            $table->decimal('matricula_costo', 10, 2);
+            $table->decimal('mensualidad', 10, 2);
+            $table->decimal('descuento', 10, 2);
+            $table->decimal('total', 10, 2);
+            $table->integer('dia_pago');
 
-            $table->unsignedBigInteger('banco_id');
-            $table->foreign('banco_id')->references('id')->on('bancos');
-
-            $table->unsignedBigInteger('apoderado_id');
-            $table->foreign('apoderado_id')->references('id')->on('apoderados');
+            $table->string('parentesco', 10);
 
             $table->timestamps();
         });
