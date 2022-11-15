@@ -126,7 +126,7 @@
 
             <!-- Pagos -->
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="{{route('pagos.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-money"></i>
                 <div data-i18n="Tables">Pagos</div>
               </a>
@@ -144,12 +144,24 @@
             
 
 
-            <!-- Apoderados -->
+            <!-- Reportes -->
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-file"></i>
-                <div data-i18n="Tables">Reportes</div>
+                <div data-i18n="Account Settings">Reportes</div>
               </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{route('users.index')}}" class="menu-link">
+                    <div data-i18n="Account">Estado de cuenta</div>
+                  </a>
+                </li>
+                {{-- <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div data-i18n="Notifications">Restaurar contraseñas</div>
+                  </a>
+                </li> --}}
+              </ul>
             </li>
 
 
@@ -201,13 +213,7 @@
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
+                  I.E. D'UNI
                 </div>
               </div>
               <!-- /Search -->

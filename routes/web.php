@@ -5,6 +5,7 @@ use App\Http\Controllers\BancoController;
 use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MatriculaController;
+use App\Http\Controllers\PagoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,4 +39,6 @@ Route::post('estudiantes/getStudent', [EstudianteController::class, 'getStudentb
 Route::resource('apoderados', ApoderadoController::class)->names('apoderados')->middleware('auth');
 Route::post('apoderados/getApoderado', [ApoderadoController::class, 'getApoderadobyDNI']);
 Route::resource('matriculas', MatriculaController::class)->names('matriculas')->middleware('auth');
+Route::post('matriculas/getMatricula', [MatriculaController::class, 'getMatriculabyCode']);
 Route::resource('bancos', BancoController::class)->names('bancos')->middleware('auth');
+Route::resource('pagos', PagoController::class)->names('pagos')->middleware('auth');

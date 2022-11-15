@@ -16,4 +16,9 @@ class Matricula extends Model
     public function apoderado(){
         return $this->belongsTo(Apoderado::class);
     }
+
+    public function pagos(){
+        return $this->hasMany(Pago::class);
+    }
+
 }

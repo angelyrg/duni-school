@@ -20,35 +20,52 @@
                 <div class="table table-responsive">
                     <table class="table tablesorter " id="table-datatable">
                         <thead class="table-dark">
-                            <tr>
-                                <th>ID</th>
-                                <th>Estudiante</th>                           
-                                <th>Nivel</th>
-                                <th>Aula</th>
-                                <th>Apoderado</th>
-                                <th>Mensualidad</th>
-                                <th>Total</th>
-                                <th>Opciones</th>
+                            <tr >
+                                <th class="text-white">#</th>
+                                <th class="text-white">Cod Matrícula</th>
+                                <th class="text-white">Estudiante</th>                           
+                                <th class="text-white">Nivel</th>
+                                <th class="text-white">Aula</th>
+                                <th class="text-white">Situación</th>
+                                <th class="text-white">Apoderado</th>
+                                {{-- <th class="text-white">Mensualidad</th>
+                                <th class="text-white">Total</th> --}}
+                                <th class="text-white">Balance</th>
+                                <th class="text-white">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @if (count($matriculas) == 0)
                                 <tr>
-                                    <td colspan="8">No hay registros</td>
+                                    <td colspan="10">No hay registros</td>
                                 </tr>
                             @else
+                                <?php $i=0; ?>
                                 @foreach ($matriculas as $matricula)
+                                    <?php $i++; ?>
                                     <tr>
-                                        <td>{{$matricula->id}}</td>
+                                        <td>{{$i}}</td>
+                                        <td><a href="#">{{$matricula->cod_matricula}}</a></td>
                                         <td>{{$matricula->estudiante->nombres_estudiante.' '.$matricula->estudiante->apellidos_estudiante}}</td>
                                         <td>{{$matricula->nivel}}</td>
                                         <td>{{$matricula->grado.' '.$matricula->seccion}}</td>
+                                        <td>{{$matricula->situacion}}</td>
                                         <td>{{$matricula->apoderado->nombres_apoderado}}</td>
-                                        <td>{{$matricula->mensualidad}}</td>
-                                        <td>{{$matricula->total}}</td>
-                                        
+
+                                        <td>
+                                            <span class="badge bg-label-@if($matricula->deuda > 0){{'danger'}}@else{{'success'}}@endif me-1">
+                                                @if($matricula->deuda > 0)
+                                                    <i class='bx bxs-info-circle'></i>
+                                                @else
+                                                    <i class='bx bxs-check-circle'></i>
+                                                @endif
+                                                
+                                                {{"S/ ".$matricula->deuda}}
+                                            </span>
+                                        </td>
+
                                         <td>                                  
-                                            {{-- <a href="{{route('matriculas.edit', $matricula->id)}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-edit-alt' ></i></a> --}}
+                                            <a href="{{route('pagos.create')}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-money'></i></a>
                                             <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$matricula->id}}">
                                                 <i class='bx bx-trash'></i>
                                             </button>

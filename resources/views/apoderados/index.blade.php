@@ -24,11 +24,12 @@
                     <table class="table tablesorter " id="table-datatable">
                         <thead class="table-dark">
                             <tr>
-                                <th>ID</th>
-                                <th>DNI</th>                           
-                                <th>Nombres</th>
-                                <th>Apellidos</th>
-                                <th>Acciones</th>
+                                <th class="text-white">ID</th>
+                                <th class="text-white">DNI</th>                           
+                                <th class="text-white">Nombres</th>
+                                <th class="text-white">Apellidos</th>
+                                <th class="text-white">Apoderado</th>
+                                <th class="text-white">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,12 +38,15 @@
                                     <td colspan="5">No hay registros</td>
                                 </tr>
                             @else
+                                <?php $i=0; ?>
                                 @foreach ($apoderados as $apoderado)
+                                    <?php $i++; ?>
                                     <tr>
-                                        <td>{{$apoderado->id}}</td>
+                                        <td>{{$i}}</td>
                                         <td>{{$apoderado->dni_apoderado}}</td>
                                         <td>{{$apoderado->nombres_apoderado}}</td>
                                         <td>{{$apoderado->apellidos_apoderado}}</td>
+                                        <td>{{count($apoderado->matriculas)}}</td>
                                         <td>                                  
                                             <a href="{{route('apoderados.edit', $apoderado->id)}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-edit-alt' ></i></a>
                                             <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$apoderado->id}}">

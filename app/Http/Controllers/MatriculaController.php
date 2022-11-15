@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MatriculaStoreRequest;
 use App\Models\Banco;
+use App\Models\Estudiante;
 use App\Models\Matricula;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MatriculaController extends Controller
 {
@@ -48,8 +50,10 @@ class MatriculaController extends Controller
      */
     public function store(MatriculaStoreRequest $request)
     {
+        $est = Estudiante::findOrFail($request->estudiante_id)->only('dni_estudiante');
 
         $matricula = new Matricula();
+        $matricula->cod_matricula = "000".$est['dni_estudiante'];
         $matricula->estudiante_id = $request->estudiante_id;
         $matricula->apoderado_id = $request->apoderado_id;
         $matricula->parentesco = $request->parentesco;
@@ -65,8 +69,8 @@ class MatriculaController extends Controller
         $matricula->mensualidad = $request->mensualidad;
         $matricula->descuento = $request->descuento;
         $matricula->dia_pago = $request->dia_pago;
-        $matricula->total = $request->mensualidad * 10;
-                
+        $matricula->total = $request->mensualidad * 10 + $request->matricula_costo;
+        $matricula->deuda = $matricula->total;                
         
         $matricula->save();
 
@@ -141,4 +145,20 @@ class MatriculaController extends Controller
         $matricula->delete();
         return redirect()->route('matriculas.index')->with('success', 'Registro eliminado exitosamente.'); 
     }
+
+
+    public function getMatriculabyCode(Request $request){
+        $code = $request->code;
+        //$matricula = Matricula::where('cod_matricula', $code)->get();  
+
+        $matricula = DB::table('estudiantes')
+            ->join('matriculas', 'estudiantes.id', '=', 'matriculas.estudiante_id')
+            ->select('*')
+            ->where('matriculas.cod_matricula', '=', $code)
+            ->get();
+
+
+        return response()->json($matricula);
+    }
+
 }

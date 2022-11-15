@@ -166,6 +166,8 @@ return [
          * Package Service Providers...
          */
 
+        LaravelDaily\Invoices\InvoiceServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -229,6 +231,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        'Invoice' => LaravelDaily\Invoices\Facades\Invoice::class
 
     ],
 

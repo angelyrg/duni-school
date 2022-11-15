@@ -199,7 +199,7 @@
                                         <label class="form-label" for="basic-icon-default-fullname">Día de pago</label>
                                         <div class="input-group input-group-merge">
                                             <span class="input-group-text"><i class='bx bx-calendar-check'></i></span>
-                                            <input type="number" name="dia_pago" class="form-control" min="1" max="30" required/>
+                                            <input type="number" name="dia_pago" class="form-control" value="30" min="1" max="30" required/>
                                         </div>
                                     </div>
                                 </div>

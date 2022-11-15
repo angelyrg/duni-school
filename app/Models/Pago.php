@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Apoderado extends Model
+class Pago extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
-    public function matriculas(){
-        return $this->hasMany(Matricula::class);
+    public function matricula(){
+        return $this->belongsTo(Matricula::class);
     }
-    
+
 }

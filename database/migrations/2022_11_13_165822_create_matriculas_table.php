@@ -23,6 +23,7 @@ class CreateMatriculasTable extends Migration
             $table->unsignedBigInteger('apoderado_id');
             $table->foreign('apoderado_id')->references('id')->on('apoderados');
 
+            $table->string('cod_matricula', 15);
             $table->string('nivel', 10);
             $table->string('grado', 10);
             $table->string('seccion', 10);
@@ -35,6 +36,7 @@ class CreateMatriculasTable extends Migration
             $table->decimal('mensualidad', 10, 2);
             $table->decimal('descuento', 10, 2);
             $table->decimal('total', 10, 2);
+            $table->decimal('deuda', 10, 2);
             $table->integer('dia_pago');
 
             $table->string('parentesco', 10);
