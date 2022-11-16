@@ -28,6 +28,7 @@
                                 <th class="text-white">DNI</th>                           
                                 <th class="text-white">Nombres</th>
                                 <th class="text-white">Apellidos</th>
+                                <th class="text-white">Celular</th>
                                 <th class="text-white">Apoderado</th>
                                 <th class="text-white">Acciones</th>
                             </tr>
@@ -46,6 +47,7 @@
                                         <td>{{$apoderado->dni_apoderado}}</td>
                                         <td>{{$apoderado->nombres_apoderado}}</td>
                                         <td>{{$apoderado->apellidos_apoderado}}</td>
+                                        <td>{{$apoderado->celular_apoderado}}</td>
                                         <td>{{count($apoderado->matriculas)}}</td>
                                         <td>                                  
                                             <a href="{{route('apoderados.edit', $apoderado->id)}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-edit-alt' ></i></a>

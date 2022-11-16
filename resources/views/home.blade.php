@@ -4,14 +4,14 @@
 
 
 <div class="row d-flex justify-content-center">
-  <div class="col-lg-8 mb-4 order-0">
+  <div class="col-lg-10 mb-4 order-0">
     <div class="card">
       <div class="d-flex align-items-end row">
         <div class="col-sm-7">
           <div class="card-body">
             <h5 class="card-title text-primary">Bienvenid@ {{Auth::user()->name}}! 🎉</h5>
             <p class="mb-4">
-              Sistema de Gestión de <span class="fw-bold">Matrículas y Pagos</span> para la Institución Educativa ...
+              Sistema de Gestión de <span class="fw-bold">Matrículas y Pagos</span> para la Institución Educativa D'UNI
             </p>
           </div>
         </div>
@@ -40,7 +40,7 @@
           </div>
           
         </div>
-        <span class="fw-semibold d-block mb-1">20</span>
+        <span class="fw-semibold d-block mb-1">{{$ctd_matricula}}</span>
         <h3 class="card-title text-nowrap mb-1">Matrícula</h3>
         <div class="row text-center">
           <a href="{{route('matriculas.index')}}" class="btn btn-outline-info"><i class="bx bx-user-pin"></i> Matrículas</a>
@@ -58,7 +58,7 @@
           </div>
           
         </div>
-        <span class="fw-semibold d-block mb-1">123</span>
+        <span class="fw-semibold d-block mb-1">S/ {{$pagos_matricula}}</span>
         <h3 class="card-title text-nowrap mb-1">Pagos</h3>
         <div class="row text-center">
           <a href="{{route('pagos.index')}}" class="btn btn-outline-warning"> <i class="bx bx-money"></i> Pagos</a>       

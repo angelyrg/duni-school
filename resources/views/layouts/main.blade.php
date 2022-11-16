@@ -132,17 +132,6 @@
               </a>
             </li>
 
-            <!-- Grados/Secciones -->
-            {{-- <li class="menu-item">
-              <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-chalkboard"></i>
-                <div data-i18n="Tables">Grados/Secciones</div>
-              </a>
-            </li> --}}
-
-            
-            
-
 
             <!-- Reportes -->
             <li class="menu-item">
@@ -152,7 +141,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="{{route('users.index')}}" class="menu-link">
+                  <a href="{{route('reportes')}}" class="menu-link">
                     <div data-i18n="Account">Estado de cuenta</div>
                   </a>
                 </li>

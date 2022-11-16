@@ -3,9 +3,11 @@
 use App\Http\Controllers\ApoderadoController;
 use App\Http\Controllers\BancoController;
 use App\Http\Controllers\EstudianteController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MatriculaController;
 use App\Http\Controllers\PagoController;
+use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +33,9 @@ Route::post('login', [LoginController::class, 'login'] )->name('login');
 Route::post('logout', [LoginController::class, 'logout'] )->name('logout');
 
 //Route::view('home', 'home')->name('home');
-Route::view('home', 'home')->name('home')->middleware('auth');
+//Route::view('home', 'home')->name('home')->middleware('auth');
+
+Route::get('home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
 Route::resource('usuarios', UserController::class)->names('users')->middleware('auth.admin');
 Route::resource('estudiantes', EstudianteController::class)->names('estudiantes')->middleware('auth');
@@ -42,3 +46,5 @@ Route::resource('matriculas', MatriculaController::class)->names('matriculas')->
 Route::post('matriculas/getMatricula', [MatriculaController::class, 'getMatriculabyCode']);
 Route::resource('bancos', BancoController::class)->names('bancos')->middleware('auth');
 Route::resource('pagos', PagoController::class)->names('pagos')->middleware('auth');
+
+Route::get('reportes', [ReporteController::class, 'index'])->name('reportes')->middleware('auth');

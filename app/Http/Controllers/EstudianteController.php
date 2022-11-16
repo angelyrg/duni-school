@@ -39,7 +39,7 @@ class EstudianteController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'dni_estudiante' => 'required|digits:8|max:8',
+            'dni_estudiante' => 'required|digits:8|max:8|unique:estudiantes',
             'nombres_estudiante' => 'required|string',
             'apellidos_estudiante' => 'required|string',
             'genero' => 'required|string',

@@ -82,7 +82,6 @@
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
-            Complete los siguientes campos
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>

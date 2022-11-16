@@ -53,7 +53,7 @@ class ApoderadoController extends Controller
     public function update(Request $request, Apoderado $apoderado)
     {
         $this->validate($request, [
-            'dni_apoderado' => 'required|digits:8|max:8',
+            'dni_apoderado' => 'required|digits:8|max:81unique:apoderados',
             'nombres_apoderado' => 'required|string',
             'apellidos_apoderado' => 'required|string',
             'celular_apoderado' => 'digits:9|max:9',
