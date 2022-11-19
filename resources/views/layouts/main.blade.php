@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html
-  lang="en"
+  lang="es"
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
@@ -335,6 +335,8 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
     @yield('js')
   </body>

@@ -53,10 +53,14 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#modal-info-{{$matricula->id}}">
-                                                <i class='bx bx-list-ul'></i> Detalles de pago
-                                            </button>
-                                            @include('reportes.modal-info')                                            
+                                            @if (count($matricula->pagos) >0 )
+                                                <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#modal-info-{{$matricula->id}}">
+                                                    <i class='bx bx-list-ul'></i> Detalles de pago
+                                                </button>
+                                                @include('reportes.modal-info')
+                                            @else
+                                                <span class="badge bg-label-info me-1"><i class="bx bx-info"></i> Aún no hay pagos</span>
+                                            @endif                                            
                                         </td>
                                     </tr>                        
                                 @endforeach

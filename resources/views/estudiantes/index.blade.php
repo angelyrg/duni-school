@@ -21,7 +21,7 @@
 
             <div class="card-body">
                 <div class="table table-responsive">
-                    <table class="table tablesorter " id="table-datatable">
+                    <table class="table tablesorter" id="example">
                         <thead class="table-dark">
                             <tr>
                                 <th>ID</th>
@@ -70,5 +70,21 @@
 
 @include('estudiantes.modal-create')
 
+@endsection
 
+@section('js')
+
+@if (count($estudiantes) > 0)
+<script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" type="text/javascript"></script>
+
+<script>
+    $(document).ready( function () {
+        $('#example').DataTable();
+        $('#table-datatable').DataTable();
+    });
+</script>
+@endif
+
+    
 @endsection

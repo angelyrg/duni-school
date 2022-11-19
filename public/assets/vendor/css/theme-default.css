@@ -649,8 +649,8 @@ a:hover {
 }
 
 .bg-menu-theme {
-  background-color: #2f3443 !important;
-  color: #eaeaea;
+  background-color: #242b3e !important;
+  color: #ffffff;
 }
 .bg-menu-theme .menu-link,
 .bg-menu-theme .menu-horizontal-prev,
@@ -662,7 +662,7 @@ a:hover {
 .bg-menu-theme .menu-horizontal-prev:focus,
 .bg-menu-theme .menu-horizontal-next:hover,
 .bg-menu-theme .menu-horizontal-next:focus {
-  color: #d5caff;
+  color: #e3ceff;
 }
 .bg-menu-theme .menu-link.active,
 .bg-menu-theme .menu-horizontal-prev.active,

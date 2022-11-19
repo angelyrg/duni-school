@@ -18,10 +18,10 @@ class CreateMatriculasTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('estudiante_id');
-            $table->foreign('estudiante_id')->references('id')->on('estudiantes');
+            $table->foreign('estudiante_id')->references('id')->on('estudiantes')->onDelete('cascade');;
 
             $table->unsignedBigInteger('apoderado_id');
-            $table->foreign('apoderado_id')->references('id')->on('apoderados');
+            $table->foreign('apoderado_id')->references('id')->on('apoderados')->onDelete('cascade');;
 
             $table->string('cod_matricula', 15);
             $table->string('nivel', 10);

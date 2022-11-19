@@ -33,7 +33,7 @@ class MatriculaStoreRequest extends FormRequest
             'situacion' => 'required|string',
             'procedencia' => 'required|string',
             'matricula_costo' => 'required',
-            'mensualidad' => 'required',
+            'mensualidad_final' => 'required',
             'descuento' => 'required',
             'dia_pago' => 'required|integer'
         ];

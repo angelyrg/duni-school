@@ -20,7 +20,7 @@
 
             <div class="card-body">
                 <div class="table table-responsive">
-                    <table class="table tablesorter " id="table-datatable">
+                    <table class="table tablesorter " id="example">
                         <thead class="table-dark">
                             <tr>
                                 <th class="text-white">#</th>
@@ -52,14 +52,6 @@
                                         <td>{{$pago->concepto}}</td>
                                         <td>{{$pago->medio_pago}}</td>
                                         <td>{{"S/ ".$pago->monto}}</td>
-
-                                        {{-- <td>
-                                            <a href="{{route('pagos.edit', $pago->id)}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-edit-alt' ></i></a>
-                                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$pago->id}}">
-                                                <i class='bx bx-trash'></i>
-                                            </button>
-                                            @include('pagos.modal-delete')                                            
-                                        </td> --}}
                                     </tr>                        
                                 @endforeach
                             @endif
@@ -75,4 +67,19 @@
 </div>
 
 
+@endsection
+
+@section('js')
+
+@if (count($pagos) > 0)
+{{-- <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script> --}}
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" type="text/javascript"></script>
+
+<script>
+    $(document).ready( function () {
+        $('#example').DataTable();
+    });
+</script>
+@endif
+    
 @endsection
