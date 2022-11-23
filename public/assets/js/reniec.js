@@ -1,38 +1,40 @@
 $(document).ready(function(){
      
     $('#btnBuscar').click(function(){
-        event.preventDefault();
+
         var numdni = $('#dni_search').val();
-        //https://api.apis.net.pe/v1/dni?numero=74418528
+        var link_consulta = "https://dniruc.apisperu.com/api/v1/dni/" + numdni +"?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFuZ2VsLnlhcmFuZzRAZ21haWwuY29tIn0.QjoAby91BOkxcIkiKEB2-KdFvlNMldOgAlDiLtF_TYA";
 
-        var link_consulta = "https://api.apis.net.pe/v1/dni?numero=" + numdni;
-        
-        if (numdni!='') {
-            $.ajax({
-                url : link_consulta,
-                success:function(data){
-                    alert(data);
-                },
-                error : function() {           
-                    alert('Error');
+        $.ajax({
+            url : link_consulta,
+            success:function(data){
+                $('#btnBuscar').val('Buscar');
+                
+                if(Object.keys(data).length == 5){
+                    $('#nombres').val(data.nombres);
+                    $('#apellidos').val(data.apellidoPaterno + " " + data.apellidoMaterno);
+                    
+                    $('#mensaje_busqueda').text('✅');
 
-                    // $('#icono_cargando').hide();
-                    // $('#mensaje').show();
-                    // $('#mensaje').delay(4000).hide(1000);
+                }else{
+                    $('#nombres').val('');
+                    $('#apellidos').val('');
 
-                    // $('#nombres').val('');
-                    // $('#apellidos').val('');
-                    // $('#dni').val('');
-                },
-                beforeSend: function( ) {
-                    $('#icono_cargando').show();
+                    $('#mensaje_busqueda').text('No se hallaron datos');
                 }
+                
+            },
+            error : function(e) {           
+                console.log(e);
+                $('#mensaje_busqueda').text('Ingrese un DNI válido');
+                $('#btnBuscar').val('Buscar');
+            },
+            beforeSend: function( ) {
+                $('#btnBuscar').val('Buscando...');
+            }
 
-            });
-        }else{
-            alert('¡Escriba el número de DNI!');
-            $('#dni_search').focus();
-        }
+        });
+        
     });
 
 });

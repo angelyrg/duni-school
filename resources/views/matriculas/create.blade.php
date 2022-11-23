@@ -94,7 +94,7 @@
                                         <label class="col-form-label" for="basic-icon-default-fullname">Nivel</label>
                                         <div class="input-group input-group-merge">
                                             <span class="input-group-text"><i class="bx bx-user"></i></span>
-                                            <select name="nivel" class="form-select" required>
+                                            <select name="nivel" id="nivel_select" class="form-select" required>
                                                 <option selected disabled value="">Seleccione...</option>                                                    
                                                 <option>Inicial</option>
                                                 <option>Primaria</option>
@@ -108,11 +108,7 @@
                                         <label class="col-form-label" >Grado</label>
                                         <div class="input-group input-group-merge">
                                             <span class="input-group-text"><i class='bx bxs-user-detail'></i></span>
-                                            <select name="grado" class="form-select" required>
-                                                <option selected disabled value="">Seleccione...</option>
-                                                @foreach ($grados[1] as $grado)
-                                                    <option>{{$grado}}</option>
-                                                @endforeach
+                                            <select name="grado" id="grado_select" class="form-select" required>
                                             </select>
                                         </div>
                                     </div>
@@ -180,7 +176,7 @@
                                         <label class="form-label" for="basic-icon-default-fullname">Mensualidad</label>
                                         <div class="input-group input-group-merge">
                                             <span class="input-group-text">S/</span>
-                                            <input type="number" name="mensualidad" class="form-control" placeholder="Mensualidad" required step="any" min="0"/>
+                                            <input type="number" name="mensualidad" id="mensualidad" class="form-control" placeholder="Mensualidad" required step="any" min="0"/>
                                         </div>                                   
                                     </div>
                                 </div>
@@ -189,17 +185,18 @@
                                         <label class="form-label" for="basic-icon-default-fullname">Descuento</label>
                                         <div class="input-group input-group-merge">
                                             <span class="input-group-text"><i class='bx bx-donate-blood'></i></span>
-                                            <input type="number" name="descuento" class="form-control" value="0" placeholder="10" required step="any" min="0"/>
+                                            <input type="number" name="descuento" id="descuento" class="form-control" value="0" placeholder="10" required step="any" min="0" max="100"/>
                                             <span class="input-group-text">%</span>
                                         </div>                                   
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="row mb-3">
-                                        <label class="form-label" for="basic-icon-default-fullname">Día de pago</label>
+                                        <label class="form-label" for="basic-icon-default-fullname">MENSUALIDAD FINAL</label>
                                         <div class="input-group input-group-merge">
-                                            <span class="input-group-text"><i class='bx bx-calendar-check'></i></span>
-                                            <input type="number" name="dia_pago" class="form-control" value="30" min="1" max="30" required/>
+                                            <span class="input-group-text">S/ </span>
+                                            <input type="hidden" name="dia_pago" class="form-control" value="30" min="1" max="30" required/>
+                                            <input type="number" name="mensualidad_final" id="mensualidad_final" class="form-control"  step="any" min="0" required/>
                                         </div>
                                     </div>
                                 </div>
@@ -326,6 +323,47 @@
 
     <script src="{{ asset("assets/js/search-student.js") }}"></script>
     <script src="{{ asset("assets/js/search-apoderado.js") }}"></script>
+
+
+    <script>
+        inicial = ['3 Años', '4 Años', '5 Años']
+        primaria = ['1°','2°','3°','4°','5°','6°']
+        secundaria = ['1°','2°','3°','4°','5°']
+        
+        $(document).on('change','#nivel_select', function(){
+            result = "";
+            switch($('#nivel_select').val()){
+                case 'Inicial':
+                    inicial.forEach(element => {
+                        result+="<option value="+element+">"+element+"</option>";
+                    });
+                    break;
+                case 'Primaria':
+                    primaria.forEach(element => {
+                        result+="<option value="+element+">"+element+"</option>";
+                    });
+                    break;
+                case 'Secundaria':
+                    secundaria.forEach(element => {
+                        result+="<option value="+element+">"+element+"</option>";
+                    });
+                    break;
+            }
+            $("#grado_select").html(result);
+        });
+
+        $(document).on('change', '#descuento', function(){
+            let mensualidad_input = $("#mensualidad").val();
+            let descuento_input = $("#descuento").val();
+            let monto_final = mensualidad_input - mensualidad_input*(descuento_input/100);
+            
+            $("#mensualidad_final").val(monto_final);
+
+            console.log( monto_final );
+
+        });
+    
+    </script>
 
 
 @endsection

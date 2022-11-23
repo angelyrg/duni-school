@@ -18,7 +18,7 @@
 
             <div class="card-body">
                 <div class="table table-responsive">
-                    <table class="table tablesorter " id="table-datatable">
+                    <table class="table tablesorter " id="example">
                         <thead class="table-dark">
                             <tr >
                                 <th class="text-white">#</th>
@@ -45,7 +45,12 @@
                                     <?php $i++; ?>
                                     <tr>
                                         <td>{{$i}}</td>
-                                        <td><a href="#">{{$matricula->cod_matricula}}</a></td>
+                                        {{-- <td><a href="#">{{$matricula->cod_matricula}}</a></td> --}}
+                                        <td>
+                                            <a href="" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd-{{$matricula->id}}" aria-controls="offcanvasEnd">
+                                                {{$matricula->cod_matricula}}
+                                            </a>
+                                        </td>
                                         <td>{{$matricula->estudiante->nombres_estudiante.' '.$matricula->estudiante->apellidos_estudiante}}</td>
                                         <td>{{$matricula->nivel}}</td>
                                         <td>{{$matricula->grado.' '.$matricula->seccion}}</td>
@@ -70,6 +75,7 @@
                                                 <i class='bx bx-trash'></i>
                                             </button>
                                             @include('matriculas.modal-delete')
+                                            @include('matriculas.info-matricula')
                                         </td>
                                     </tr>                        
                                 @endforeach
@@ -84,4 +90,20 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+
+@if (count($matriculas)>0)
+<script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" type="text/javascript"></script>
+
+<script>
+    $(document).ready( function () {
+        $('#example').DataTable();
+        $('#table-datatable').DataTable();
+    });
+</script>
+@endif
+    
 @endsection

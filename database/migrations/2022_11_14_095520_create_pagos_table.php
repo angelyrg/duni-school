@@ -17,7 +17,7 @@ class CreatePagosTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('matricula_id');
-            $table->foreign('matricula_id')->references('id')->on('matriculas');
+            $table->foreign('matricula_id')->references('id')->on('matriculas')->onDelete('cascade');;
 
             $table->string('num_recibo', 15);
             $table->decimal('monto', 10, 2);

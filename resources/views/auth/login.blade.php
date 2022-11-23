@@ -16,7 +16,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Login | Pay System</title>
+    <title>Login | D'UNI</title>
 
     <meta name="description" content="" />
 
@@ -111,7 +111,7 @@
                   </div>
                   <!-- Button trigger modal -->
                   <a href="#" data-bs-toggle="modal" data-bs-target="#password-forgot" >
-                    <small>¿Olvidaste tu contraseña?</small>
+                    {{-- <small>¿Olvidaste tu contraseña?</small> --}}
                   </a>
 
 

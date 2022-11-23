@@ -21,13 +21,14 @@
 
             <div class="card-body">
                 <div class="table table-responsive">
-                    <table class="table tablesorter " id="table-datatable">
+                    <table class="table tablesorter " id="example">
                         <thead class="table-dark">
                             <tr>
                                 <th class="text-white">ID</th>
                                 <th class="text-white">DNI</th>                           
                                 <th class="text-white">Nombres</th>
                                 <th class="text-white">Apellidos</th>
+                                <th class="text-white">Celular</th>
                                 <th class="text-white">Apoderado</th>
                                 <th class="text-white">Acciones</th>
                             </tr>
@@ -46,6 +47,7 @@
                                         <td>{{$apoderado->dni_apoderado}}</td>
                                         <td>{{$apoderado->nombres_apoderado}}</td>
                                         <td>{{$apoderado->apellidos_apoderado}}</td>
+                                        <td>{{$apoderado->celular_apoderado}}</td>
                                         <td>{{count($apoderado->matriculas)}}</td>
                                         <td>                                  
                                             <a href="{{route('apoderados.edit', $apoderado->id)}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-edit-alt' ></i></a>
@@ -67,6 +69,19 @@
         </div>
     </div>
 </div>
+@endsection
 
+@section('js')
 
+@if (count($apoderados) > 0)
+<script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" type="text/javascript"></script>
+
+<script>
+    $(document).ready( function () {
+        $('#example').DataTable();
+        $('#table-datatable').DataTable();
+    });
+</script>
+@endif
 @endsection

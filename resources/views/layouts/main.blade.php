@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html
-  lang="en"
+  lang="es"
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
@@ -132,17 +132,6 @@
               </a>
             </li>
 
-            <!-- Grados/Secciones -->
-            {{-- <li class="menu-item">
-              <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-chalkboard"></i>
-                <div data-i18n="Tables">Grados/Secciones</div>
-              </a>
-            </li> --}}
-
-            
-            
-
 
             <!-- Reportes -->
             <li class="menu-item">
@@ -152,7 +141,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="{{route('users.index')}}" class="menu-link">
+                  <a href="{{route('reportes')}}" class="menu-link">
                     <div data-i18n="Account">Estado de cuenta</div>
                   </a>
                 </li>
@@ -346,6 +335,8 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
     @yield('js')
   </body>

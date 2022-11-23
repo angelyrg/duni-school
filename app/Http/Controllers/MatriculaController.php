@@ -50,6 +50,7 @@ class MatriculaController extends Controller
      */
     public function store(MatriculaStoreRequest $request)
     {
+        //return $request;
         $est = Estudiante::findOrFail($request->estudiante_id)->only('dni_estudiante');
 
         $matricula = new Matricula();
@@ -66,10 +67,10 @@ class MatriculaController extends Controller
         $matricula->ie_procedencia = $request->ie_procedencia;
 
         $matricula->matricula_costo = $request->matricula_costo;
-        $matricula->mensualidad = $request->mensualidad;
+        $matricula->mensualidad = $request->mensualidad_final;
         $matricula->descuento = $request->descuento;
         $matricula->dia_pago = $request->dia_pago;
-        $matricula->total = $request->mensualidad * 10 + $request->matricula_costo;
+        $matricula->total = $request->mensualidad_final * 10 + $request->matricula_costo;
         $matricula->deuda = $matricula->total;                
         
         $matricula->save();
