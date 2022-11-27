@@ -1,7 +1,10 @@
 @extends('layouts.main')
 
-@section('content')
+@section('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+@endsection
 
+@section('content')
     
 <div class="row">
 
@@ -24,46 +27,39 @@
                     <table class="table tablesorter" id="example">
                         <thead class="table-dark">
                             <tr>
-                                <th>ID</th>
-                                <th>DNI</th>                           
-                                <th>Nombres y apellidos</th>
-                                <th>Género</th>
-                                <th>Fecha de nacimiento</th>
-                                <th>Opciones</th>
+                                <th class="text-white">ID</th>
+                                <th class="text-white">DNI</th>                           
+                                <th class="text-white">Nombres y apellidos</th>
+                                <th class="text-white">Género</th>
+                                <th class="text-white">Fecha de nacimiento</th>
+                                <th class="text-white">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (count($estudiantes) == 0)
+                            @foreach ($estudiantes as $estudiante)
                                 <tr>
-                                    <td colspan="4">No hay registros</td>
-                                </tr>
-                            @else
-                                
-                                @foreach ($estudiantes as $estudiante)
-                                    <tr>
-                                        <td>{{$estudiante->id}}</td>
-                                        <td>{{$estudiante->dni_estudiante}}</td>
-                                        <td>{{$estudiante->nombres_estudiante." ".$estudiante->apellidos_estudiante}}</td>
-                                        <td>{{$estudiante->genero}}</td>
-                                        <td>{{$estudiante->fecha_nacimiento}}</td>
-                                        
-                                        <td>                                  
-                                            <a href="{{route('estudiantes.edit', $estudiante->id)}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-edit-alt' ></i></a>
-                                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$estudiante->id}}">
-                                                <i class='bx bx-trash'></i>
-                                            </button>
-                                            @include('estudiantes.modal-delete')                                            
-                                        </td>
-                                    </tr>                        
-                                @endforeach
-                            @endif
+                                    <td>{{$estudiante->id}}</td>
+                                    <td>{{$estudiante->dni_estudiante}}</td>
+                                    <td>{{$estudiante->nombres_estudiante." ".$estudiante->apellidos_estudiante}}</td>
+                                    <td>{{$estudiante->genero}}</td>
+                                    <td>{{$estudiante->fecha_nacimiento}}</td>
+                                    
+                                    <td>                                  
+                                        <a href="{{route('estudiantes.edit', $estudiante->id)}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-edit-alt' ></i></a>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$estudiante->id}}">
+                                            <i class='bx bx-trash'></i>
+                                        </button>
+                                        @include('estudiantes.modal-delete')                                            
+                                    </td>
+                                </tr>                        
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="card-footer">
+            {{-- <div class="card-footer">
                 {{ $estudiantes->links() }}
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
@@ -73,18 +69,17 @@
 @endsection
 
 @section('js')
-
-@if (count($estudiantes) > 0)
 <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js" type="text/javascript"></script>
 
 <script>
     $(document).ready( function () {
-        $('#example').DataTable();
-        $('#table-datatable').DataTable();
+        $('#example').DataTable({
+            "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+            }
+        });
     });
 </script>
-@endif
-
-    
 @endsection

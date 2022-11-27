@@ -10,7 +10,7 @@ class ApoderadoController extends Controller
 
     public function index()
     {
-        $apoderados = Apoderado::paginate(6);
+        $apoderados = Apoderado::all();
         return view("apoderados.index", compact('apoderados'));
     }
 

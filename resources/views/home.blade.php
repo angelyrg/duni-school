@@ -4,7 +4,7 @@
 
 
 <div class="row d-flex justify-content-center">
-  <div class="col-lg-10 mb-4 order-0">
+  <div class="col-lg-9 mb-4 order-0">
     <div class="card">
       <div class="d-flex align-items-end row">
         <div class="col-sm-7">
@@ -36,7 +36,7 @@
       <div class="card-body">
         <div class="card-title d-flex align-items-start justify-content-between">
           <div class="avatar flex-shrink-0">                  
-            <img src="{{asset('assets/img/unicons/chart.png')}}" alt="chart success" class="rounded">
+            <img src="{{asset('assets/img/unicons/wallet-info.png')}}" alt="chart success" class="rounded">
           </div>
           
         </div>
@@ -66,11 +66,25 @@
       </div>
     </div>
   </div>
+  
+  <div class="col-md-3 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title d-flex align-items-start justify-content-between">
+          <div class="avatar flex-shrink-0">
+            <img src="{{asset('assets/img/unicons/chart-success.png')}}" alt="chart info" class="rounded">
+          </div>
+        </div>
+        <span class="fw-semibold d-block mb-1">-</span>
+        <h3 class="card-title text-nowrap mb-1">Reportes</h3>
+        <div class="row text-center">
+          <a href="{{route('reportes')}}" class="btn btn-outline-success"> <i class='bx bxs-pie-chart-alt-2'></i> Reportes</a>       
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
-
-
-
 
     
 @endsection

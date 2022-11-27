@@ -1,8 +1,11 @@
 @extends('layouts.main')
 
+@section('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+@endsection
+
 @section('content')
- 
-    
+
 <div class="row">
 
     <div class="col-md-12">
@@ -21,50 +24,39 @@
 
             <div class="card-body">
                 <div class="table table-responsive">
-                    <table class="table tablesorter " id="">
-                        <thead class="text-primary">
+                    <table class="table tablesorter " id="example">
+                        <thead class="table-dark">
                             <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>usuario</th>
-                                <th>Rol</th>
-                                <th>Estado</th>
-                                <th>Opciones</th>
+                                <th class="text-white">ID</th>
+                                <th class="text-white">Nombre</th>
+                                <th class="text-white">usuario</th>
+                                <th class="text-white">Rol</th>
+                                {{-- <th>Estado</th> --}}
+                                <th class="text-white">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (count($usuarios) == 0)
+                            @foreach ($usuarios as $usuario)
                                 <tr>
-                                    <td colspan="5">No hay registros</td>
-                                </tr>
-                            @else
-                                
-                                @foreach ($usuarios as $usuario)
-                                    <tr>
-                                        <td>{{$usuario->id}}</td>
-                                        <td>{{$usuario->name}}</td>
-                                        <td>{{$usuario->username}}</td>
-                                        <td>{{$usuario->rol}}</td>
-                                        {{-- <td><span class="badge bg-label-danger me-1"></span></td> --}}
-                                        <td>
-                                            <a href="{{route('users.edit', $usuario->id)}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-edit-alt' ></i></a>
-                                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$usuario->id}}">
-                                                <i class='bx bx-trash'></i>
-                                            </button>
-                                            @include('usuarios.modal-delete')                                            
-                                        </td>
-                                    </tr>                        
-                                    {{-- @include('responsable.usuarios.modal-delete') --}}
-                                @endforeach
-                            @endif
+                                    <td>{{$usuario->id}}</td>
+                                    <td>{{$usuario->name}}</td>
+                                    <td>{{$usuario->username}}</td>
+                                    <td>{{$usuario->rol}}</td>
+                                    {{-- <td><span class="badge bg-label-danger me-1"></span></td> --}}
+                                    <td>
+                                        <a href="{{route('users.edit', $usuario->id)}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-edit-alt' ></i></a>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$usuario->id}}">
+                                            <i class='bx bx-trash'></i>
+                                        </button>
+                                        @include('usuarios.modal-delete')                                            
+                                    </td>
+                                </tr>                        
+                            @endforeach
+                            
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="card-footer">
-                {{ $usuarios->links() }}
-            </div>
-
         </div>
 
         
@@ -148,4 +140,20 @@
 </div>
 
 
+@endsection
+
+@section('js')
+<script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js" type="text/javascript"></script>
+
+<script>
+    $(document).ready( function () {
+        $('#example').DataTable({
+            "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+            }
+        });
+    });
+</script>
 @endsection

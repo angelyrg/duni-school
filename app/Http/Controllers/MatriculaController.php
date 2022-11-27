@@ -25,7 +25,7 @@ class MatriculaController extends Controller
      */
     public function index()
     {
-        $matriculas = Matricula::paginate(6);
+        $matriculas = Matricula::all();
         return view("matriculas.index", compact('matriculas'));
 
     }
@@ -53,8 +53,10 @@ class MatriculaController extends Controller
         //return $request;
         $est = Estudiante::findOrFail($request->estudiante_id)->only('dni_estudiante');
 
+        $today = getdate();
+
         $matricula = new Matricula();
-        $matricula->cod_matricula = "000".$est['dni_estudiante'];
+        $matricula->cod_matricula = $today[0];
         $matricula->estudiante_id = $request->estudiante_id;
         $matricula->apoderado_id = $request->apoderado_id;
         $matricula->parentesco = $request->parentesco;

@@ -14,7 +14,7 @@ class BancoController extends Controller
      */
     public function index()
     {
-        $bancos = Banco::paginate(6);
+        $bancos = Banco::all();
         return view("bancos.index", compact('bancos'));
     }
 

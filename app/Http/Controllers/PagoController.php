@@ -23,8 +23,7 @@ class PagoController extends Controller
 
     public function index()
     {
-        //$matriculas = Matricula::all();
-        $pagos = Pago::paginate(6);
+        $pagos = Pago::all();
         return view('pagos.index', compact('pagos'));
     }
 

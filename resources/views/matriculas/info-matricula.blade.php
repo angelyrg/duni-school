@@ -67,14 +67,11 @@
                         <dd class="col-sm-8">Costo de matrícula</dd>
                         <dd class="col-sm-4">S/ {{$matricula->matricula_costo}}</dd>
                         
-                        <dd class="col-sm-8">Mensualidad</dd>
-                        <dd class="col-sm-4">S/ {{$matricula->mensualidad + $matricula->mensualidad*$matricula->descuento/100}}</dd>
+                        <dd class="col-sm-8">Descuento de mensualidad</dd>
+                        <dd class="col-sm-4">{{$matricula->descuento}} %</dd> 
 
-                        <dd class="col-sm-8">Descuento</dd>
-                        <dd class="col-sm-4">{{$matricula->descuento}} %</dd>
-
-                        <dd class="col-sm-8 text-primary"><b>Mensualidad con desc.</b></dd>
-                        <dd class="col-sm-4 text-primary"><b>S/ {{$matricula->matricula_costo}}</b></dd>
+                        <dd class="col-sm-8 text-primary"><b>Mensualidad</b></dd>
+                        <dd class="col-sm-4 text-primary"><b>S/ {{$matricula->mensualidad}}</b></dd>
 
                         <dd class="col-sm-8 text-primary">Total endeudado</dd>
                         <dd class="col-sm-4 text-primary">S/ {{$matricula->total}}</dd>
