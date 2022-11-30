@@ -44,7 +44,7 @@
                                 <?php $i++; ?>
                                 <tr>
                                     <td>{{$i}}</td>
-                                    <td><a href="#">{{"R-000".$pago->id}}</a></td>
+                                    <td><a href="{{route('pagos.invoice', $pago->id)}}">{{"R-000".$pago->id}}</a></td>
                                     <td>{{ date('d/m/Y', strtotime($pago->created_at)) }} </td>
                                     <td>{{$pago->matricula->cod_matricula}}</td>
                                     <td>{{$pago->matricula->estudiante->nombres_estudiante." ".$pago->matricula->estudiante->apellidos_estudiante}}</td>
@@ -63,6 +63,7 @@
         </div>
     </div>
 </div>
+
 
 
 @endsection

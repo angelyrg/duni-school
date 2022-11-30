@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MatriculaController;
 use App\Http\Controllers\PagoController;
+use App\Http\Controllers\RandomController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -46,5 +47,6 @@ Route::resource('matriculas', MatriculaController::class)->names('matriculas')->
 Route::post('matriculas/getMatricula', [MatriculaController::class, 'getMatriculabyCode']);
 Route::resource('bancos', BancoController::class)->names('bancos')->middleware('auth');
 Route::resource('pagos', PagoController::class)->names('pagos')->middleware('auth');
+Route::get('pagos/{pago}/invoice', [PagoController::class, 'generateInvoice'])->name('pagos.invoice');
 
 Route::get('reportes', [ReporteController::class, 'index'])->name('reportes')->middleware('auth');

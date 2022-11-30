@@ -64,15 +64,14 @@
 
                             <tbody>
                                 @foreach ($matricula->pagos as $pago)
-                                    
+                                    <tr>
+                                        <td>{{$pago->num_recibo}}</td>
+                                        <td>{{ date('d/m/Y', strtotime($pago->created_at)) }} </td>
+                                        <td>{{"S/ ".$pago->monto}}</td>
+                                        <td>{{$pago->concepto}}</td>
+                                        <td>{{$pago->medio_pago}}</td>
+                                    </tr>                                     
                                 @endforeach
-                                <tr>
-                                    <td>{{$pago->num_recibo}}</td>
-                                    <td>{{ date('d/m/Y', strtotime($pago->created_at)) }} </td>
-                                    <td>{{"S/ ".$pago->monto}}</td>
-                                    <td>{{$pago->concepto}}</td>
-                                    <td>{{$pago->medio_pago}}</td>
-                                </tr> 
                             </tbody>
                         </table>
                     </div>

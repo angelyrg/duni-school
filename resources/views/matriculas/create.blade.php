@@ -362,6 +362,16 @@
             console.log( monto_final );
 
         });
+
+        $(document).on('change', '#mensualidad', function(){
+            console.log("Mensualidad")
+            let mensualidad_input = $("#mensualidad").val();
+            let descuento_input = $("#descuento").val();
+            let monto_final = mensualidad_input - mensualidad_input*(descuento_input/100);
+            
+            $("#mensualidad_final").val(monto_final);
+
+        });
     
     </script>
 

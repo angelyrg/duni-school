@@ -51,12 +51,15 @@ class MatriculaController extends Controller
     public function store(MatriculaStoreRequest $request)
     {
         //return $request;
-        $est = Estudiante::findOrFail($request->estudiante_id)->only('dni_estudiante');
+        $est = Estudiante::findOrFail($request->estudiante_id);
 
-        $today = getdate();
+        //return $est->dni_estudiante;
+
+        $today = getdate();   
+        $year  = date("y");     
 
         $matricula = new Matricula();
-        $matricula->cod_matricula = $today[0];
+        $matricula->cod_matricula = $est->dni_estudiante.$year;
         $matricula->estudiante_id = $request->estudiante_id;
         $matricula->apoderado_id = $request->apoderado_id;
         $matricula->parentesco = $request->parentesco;

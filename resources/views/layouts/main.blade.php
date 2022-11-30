@@ -44,7 +44,7 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
 
-    <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}" />
+    {{-- <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}" /> --}}
 
     <!-- Page CSS -->
     @yield('css')
@@ -326,16 +326,16 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
+    {{-- <script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script> --}}
 
     <!-- Main JS -->
     <script src="{{asset('assets/js/main.js')}}"></script>
 
     <!-- Page JS -->
-    <script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
+    {{-- <script src="{{asset('assets/js/dashboards-analytics.js')}}"></script> --}}
 
     <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    {{-- <script async defer src="https://buttons.github.io/buttons.js"></script> --}}
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 

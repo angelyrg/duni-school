@@ -9,46 +9,29 @@ use Illuminate\Http\Request;
 
 
 
-// use LaravelDaily\Invoices\Invoice;
-// use LaravelDaily\Invoices\Classes\Buyer;
-// use LaravelDaily\Invoices\Classes\InvoiceItem;
-
+use LaravelDaily\Invoices\Invoice;
+use LaravelDaily\Invoices\Classes\Buyer;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
 
 class PagoController extends Controller
 {
     use DeudaTrait;
 
-    
-
-
-    public function index()
-    {
+    public function index(){
         $pagos = Pago::all();
         return view('pagos.index', compact('pagos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
+    public function create(){
         $bancos = Banco::all();
         return view("pagos.create", compact('bancos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
+        $today = getdate();
         $pago = new Pago();
         $pago->matricula_id = $request->matricula_id;
-        $pago->num_recibo = "R-001";
+        $pago->num_recibo = $today[0];
         $pago->concepto = $request->concepto;
         $pago->medio_pago = $request->medio_pago;
         $pago->monto = $request->monto;
@@ -60,68 +43,25 @@ class PagoController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Pago  $pago
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Pago $pago)
-    {
-        //
+
+
+    public function generateInvoice(Pago $pago){
+        $customer = new Buyer([
+            'name'          => 'John Doe',
+            'custom_fields' => [
+                'email' => 'test@example.com',
+            ],
+        ]);
+
+        $item = (new InvoiceItem())->title('Service 1')->pricePerUnit(2);
+
+        $invoice = Invoice::make()
+            ->buyer($customer)
+            ->discountByPercent(10)
+            ->taxRate(15)
+            ->shipping(1.99)
+            ->addItem($item);
+
+        return $invoice->stream();
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pago  $pago
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pago $pago)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pago  $pago
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Pago $pago)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Pago  $pago
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Pago $pago)
-    {
-        //
-    }
-
-    // public function generateInvoice(Pago $pago){
-    //     $customer = new Buyer([
-    //         'name'          => 'John Doe',
-    //         'custom_fields' => [
-    //             'email' => 'test@example.com',
-    //         ],
-    //     ]);
-
-    //     $item = (new InvoiceItem())->title('Service 1')->pricePerUnit(2);
-
-    //     $invoice = Invoice::make()
-    //         ->buyer($customer)
-    //         ->discountByPercent(10)
-    //         ->taxRate(15)
-    //         ->shipping(1.99)
-    //         ->addItem($item);
-
-    //     return $invoice->stream();
-    // }
 }

@@ -7,15 +7,9 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
+    
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
         User::create([
             'name' => "Administrador",
             'username' => "admin",
@@ -28,8 +22,8 @@ class DatabaseSeeder extends Seeder
             'password' => '$2y$10$v/ij8e6874W/0BrSGszW6O754Ea4dGkFYxs0d2xz4jLRR/6GRaOGa', // password
             'rol' => 'Secretaria' ]);
 
-        \App\Models\Estudiante::factory(80)->create();
-        \App\Models\Apoderado::factory(50)->create();
+        \App\Models\Estudiante::factory(10)->create();
+        \App\Models\Apoderado::factory(5)->create();
 
     }
 }
