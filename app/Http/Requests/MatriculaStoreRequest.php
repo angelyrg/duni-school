@@ -28,7 +28,7 @@ class MatriculaStoreRequest extends FormRequest
             'apoderado_id' => 'required',
             'parentesco' => 'required|string',
             'nivel' => 'required|string',
-            'grado' => 'required|string',
+            'grado' => 'required',
             'seccion' => 'required|string',
             'situacion' => 'required|string',
             'procedencia' => 'required|string',

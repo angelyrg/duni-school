@@ -13,7 +13,7 @@ class MatriculaController extends Controller
 {
 
     public $grados = [
-        ["3 Años", "4 años", "5 años"],
+        ["3 Años", "4 Años", "5 Años"],
         ["1°", "2°", "3°", "4°", "5°", "6°"],
         ["1°", "2°", "3°", "4°", "5°"],
     ];
@@ -23,7 +23,7 @@ class MatriculaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $matriculas = Matricula::all();
         return view("matriculas.index", compact('matriculas'));
@@ -84,16 +84,6 @@ class MatriculaController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Matricula  $matricula
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Matricula $matricula)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -155,16 +145,38 @@ class MatriculaController extends Controller
 
     public function getMatriculabyCode(Request $request){
         $code = $request->code;
-        //$matricula = Matricula::where('cod_matricula', $code)->get();  
 
         $matricula = DB::table('estudiantes')
             ->join('matriculas', 'estudiantes.id', '=', 'matriculas.estudiante_id')
             ->select('*')
             ->where('matriculas.cod_matricula', '=', $code)
             ->get();
-
-
         return response()->json($matricula);
+    }
+
+    public function getMatriculasbyAula(Request $request){
+        $nivel = $request->nivel;
+        $grado = $request->grado;
+        $seccion = $request->seccion;
+
+        if ($request->nivel != null && $request->grado != null && $request->seccion != null){
+            $matriculas = Matricula::where('nivel', $nivel)
+            ->where('grado', $grado)
+            ->where('seccion', $seccion)->get();
+            
+        }else if ($request->nivel != null && $request->grado != null){
+            $matriculas = Matricula::where('nivel', $nivel)->where('grado', $grado)->get();
+            
+        }else if($request->nivel != null ){
+            $matriculas = Matricula::where('nivel', $nivel)->get();
+
+        }else{
+            $matriculas = Matricula::all();
+            //return redirect()->back();
+        }
+
+        return view("matriculas.index", compact('matriculas', 'nivel', 'grado', 'seccion'));
+
     }
 
 }

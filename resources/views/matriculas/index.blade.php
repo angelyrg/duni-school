@@ -16,10 +16,81 @@
 
             <div class="card-header d-flex align-items-center justify-content-between">
                 <h5 class="card-title m-0 me-2">MATRÍCULAS</h5>
+
+                @if (isset($nivel) && isset($grado) && isset($seccion))
+                    <small>{{$nivel." ".$grado." ".$seccion}}</small>
+                
+                @elseif(isset($nivel) && isset($grado))
+                    <small>{{$nivel." ".$grado}}</small>
+                
+                @elseif(isset($nivel))
+                    <small>{{$nivel}}</small>
+
+                @endif
+
                 <a href="{{route('matriculas.create')}}" class="btn btn-primary btn-sm" ><i class='bx bx-plus'></i> Realizar matricula</a>
             </div>
-
+            
             <div class="card-body">
+                <div class="row" id="filtrar_matriculas">
+                    <form action="{{route('filter')}}" method="post" class="d-flex flex-row align-items-center flex-wrap">
+                        @csrf
+                        <div class="col-md-3">
+                            <div class="row mb-3">
+                                <label class="col-form-label" for="basic-icon-default-fullname">Nivel</label>
+                                <div class="input-group input-group-merge">
+                                    <span class="input-group-text"><i class="bx bx-user"></i></span>
+                                    <select name="nivel" id="nivel" class="form-select form-select-sm" required>
+                                        <option selected value="">Todos...</option>                                                    
+                                        <option @if(isset($nivel) && $nivel=="Inicial"){{"selected"}}@endif>Inicial</option>
+                                        <option @if(isset($nivel) && $nivel=="Primaria"){{"selected"}}@endif>Primaria</option>
+                                        <option @if(isset($nivel) && $nivel=="Secundaria"){{"selected"}}@endif>Secundaria</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row mb-3">
+                                <label class="col-form-label" >Grado</label>
+                                <div class="input-group input-group-merge">
+                                    <span class="input-group-text"><i class='bx bxs-user-detail'></i></span>
+                                    @if (isset($grado))
+                                    <input type="hidden" id="grado_selected" value="{{$grado}}">
+                                    @endif
+                                    <select  name="grado" id="grado" class="form-select form-select-sm" >
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row mb-3">
+                                <label class="col-form-label" >Sección</label>
+                                <div class="input-group input-group-merge">
+                                    <span class="input-group-text"><i class='bx bxs-user-detail'></i></span>
+                                    <input type="text" name="seccion" id="seccion" class="form-control form-control-sm"  placeholder="P.e. A"
+                                    @if(isset($seccion)) value="{{$seccion}}" @endif />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row mb-3">
+                                <label class="col-form-label" >Opción</label>
+                                <div class="input-group input-group-merge">
+                                    <button type="submit" class="btn btn-sm btn-outline-success">
+                                        <i class='bx bx-filter-alt'></i> Filtrar
+                                    </button>
+                                    @if (isset($nivel))
+                                        <a href="{{route('matriculas.index')}}" class="btn btn-sm btn-outline-warning">
+                                            <i class='bx bx-x'></i>
+                                            Quitar filtro
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
                 <div class="table table-responsive">
                     <table class="table tablesorter " id="example">
                         <thead class="table-dark">
@@ -28,10 +99,11 @@
                                 <th class="text-white">Cod Matrícula</th>
                                 <th class="text-white">Estudiante</th>                           
                                 <th class="text-white">Nivel</th>
-                                <th class="text-white">Aula</th>
+                                <th class="text-white">Grado</th>
+                                <th class="text-white">Sección</th>
                                 <th class="text-white">Situación</th>
-                                <th class="text-white">Apoderado</th>
-                                <th class="text-white">Balance</th>
+                                {{-- <th class="text-white">Apoderado</th> --}}
+                                {{-- <th class="text-white">Balance</th> --}}
                                 <th class="text-white">Acciones</th>
                             </tr>
                         </thead>
@@ -48,10 +120,11 @@
                                     </td>
                                     <td>{{$matricula->estudiante->nombres_estudiante.' '.$matricula->estudiante->apellidos_estudiante}}</td>
                                     <td>{{$matricula->nivel}}</td>
-                                    <td>{{$matricula->grado.' '.$matricula->seccion}}</td>
+                                    <td>{{$matricula->grado}}</td>
+                                    <td>{{$matricula->seccion}}</td>
                                     <td>{{$matricula->situacion}}</td>
-                                    <td>{{$matricula->apoderado->nombres_apoderado}}</td>
-                                    <td>
+                                    {{-- <td>{{$matricula->apoderado->nombres_apoderado}}</td> --}}
+                                    {{-- <td>
                                         <span class="badge bg-label-@if($matricula->deuda > 0){{'danger'}}@else{{'success'}}@endif me-1">
                                             @if($matricula->deuda > 0)
                                                 <i class='bx bxs-info-circle'></i>
@@ -60,7 +133,7 @@
                                             @endif
                                             {{"S/ ".$matricula->deuda}}
                                         </span>
-                                    </td>
+                                    </td> --}}
                                     <td>                                  
                                         <a href="{{route('pagos.create')}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-money'></i></a>
                                         <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$matricula->id}}">
@@ -85,20 +158,89 @@
 
 @section('js')
 
-@if (count($matriculas)>0)
 <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js" type="text/javascript"></script>
 
 <script>
+
+    inicial = ['3 Años', '4 Años', '5 Años']
+    primaria = ['1°','2°','3°','4°','5°','6°']
+    secundaria = ['1°','2°','3°','4°','5°']
+
     $(document).ready( function () {
         $('#example').DataTable({
             "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
             }
         });
+
+        //Cargar los grados después de un filtro
+        if( $("#nivel").val() == "Inicial" || $("#nivel").val() == "Primaria" ||  $("#nivel").val() == "Secundaria" ){
+            grado = $("#grado_selected").val();
+
+            result = "<option value=''>Todos</option>";
+            switch($('#nivel').val()){
+                case 'Inicial':
+                    inicial.forEach(element => {
+                        if(grado==element){
+                            result+="<option selected>"+element+"</option>";
+                        }else{
+                            result+="<option>"+element+"</option>";
+                        }
+                    });
+                    break;
+                case 'Primaria':
+                    primaria.forEach(element => {
+                        if(grado==element){
+                            result+="<option selected>"+element+"</option>";
+                        }else{
+                            result+="<option>"+element+"</option>";
+                        }
+                    });
+                    break;
+                case 'Secundaria':
+                    secundaria.forEach(element => {
+                        if(grado==element){
+                            result+="<option selected>"+element+"</option>";
+                        }else{
+                            result+="<option>"+element+"</option>";
+                        }
+                    });
+                    break;
+            }
+            $("#grado").html(result);
+
+        }
+
+        //Cargar el select de grados dependiendo del nivel seleccionado
+        $(document).on('change','#nivel', function(){
+            result = "<option value=''>Todos</option>";
+            switch($('#nivel').val()){
+                case 'Inicial':
+                    inicial.forEach(element => {
+                        result+="<option>"+element+"</option>";
+                    });
+                    break;
+                case 'Primaria':
+                    primaria.forEach(element => {
+                        result+="<option>"+element+"</option>";
+                    });
+                    break;
+                case 'Secundaria':
+                    secundaria.forEach(element => {
+                        result+="<option>"+element+"</option>";
+                    });
+                    break;
+            }
+            $("#grado").html(result);
+        });
+
     });
+
+    
+
 </script>
-@endif
+
     
 @endsection

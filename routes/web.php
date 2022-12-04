@@ -45,6 +45,7 @@ Route::resource('apoderados', ApoderadoController::class)->names('apoderados')->
 Route::post('apoderados/getApoderado', [ApoderadoController::class, 'getApoderadobyDNI']);
 Route::resource('matriculas', MatriculaController::class)->names('matriculas')->middleware('auth');
 Route::post('matriculas/getMatricula', [MatriculaController::class, 'getMatriculabyCode']);
+Route::post('matriculas/filtrar', [MatriculaController::class, 'getMatriculasbyAula'])->name("filter");
 Route::resource('bancos', BancoController::class)->names('bancos')->middleware('auth');
 Route::resource('pagos', PagoController::class)->names('pagos')->middleware('auth');
 Route::get('pagos/{pago}/invoice', [PagoController::class, 'generateInvoice'])->name('pagos.invoice');

@@ -335,7 +335,7 @@
             switch($('#nivel_select').val()){
                 case 'Inicial':
                     inicial.forEach(element => {
-                        result+="<option value="+element+">"+element+"</option>";
+                        result+="<option>"+element+"</option>";
                     });
                     break;
                 case 'Primaria':
