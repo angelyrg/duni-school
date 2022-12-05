@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use LaravelDaily\Invoices\Invoice;
 use LaravelDaily\Invoices\Classes\Buyer;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
+use LaravelDaily\Invoices\Classes\Party;
 
 class PagoController extends Controller
 {
@@ -46,22 +47,51 @@ class PagoController extends Controller
 
 
     public function generateInvoice(Pago $pago){
-        $customer = new Buyer([
-            'name'          => 'John Doe',
+
+        $client = new Party([
+            'name'          => "I.E. COLEGIO D'UNI",
             'custom_fields' => [
-                'email' => 'test@example.com',
+                'Dirección' => 'Chupaca, Huancayo',
+                'RUC' => '10064564154',
+                'Teléfono' => '929006040',
             ],
         ]);
 
-        $item = (new InvoiceItem())->title('Service 1')->pricePerUnit(2);
+        $customer = new Party([
+            'name'          => $pago->matricula->estudiante->nombres_estudiante." ".$pago->matricula->estudiante->apellidos_estudiante,
+            'custom_fields' => [
+                'Grado y sección' =>$pago->matricula->grado." ".$pago->matricula->seccion,
+                'Cod. Matrícula'=> $pago->matricula->cod_matricula,
+                'Apoderado'       => $pago->matricula->apoderado->nombres_apoderado." ".$pago->matricula->apoderado->apellidos_apoderado,
+            ],
+        ]);
 
-        $invoice = Invoice::make()
+        $items = [
+            (new InvoiceItem())->title($pago->concepto)->pricePerUnit($pago->monto)->quantity(1)
+        ];
+
+        $invoice = Invoice::make('Factura')
+            ->status(__('invoices::invoice.paid'))
+            ->seller($client)
             ->buyer($customer)
-            ->discountByPercent(10)
-            ->taxRate(15)
-            ->shipping(1.99)
-            ->addItem($item);
+            ->date(now())
+            ->dateFormat('d/m/Y')
+            ->payUntilDays(0)
+            ->currencySymbol('S/')
+            ->currencyCode('soles')
+            ->currencyFormat('{SYMBOL} {VALUE}')
+            ->currencyThousandsSeparator('.')
+            ->currencyDecimalPoint(',')
+            ->filename('Factura'.$pago->id)
+            ->addItems($items)
+            ->logo(public_path('assets/img/logo.png'))
+            // You can additionally save generated invoice to configured disk
+            ->save('public');
 
+        $link = $invoice->url();
+        // Then send email to party with link
+
+        // And return invoice itself to browser or have a different view
         return $invoice->stream();
     }
 }
