@@ -51,3 +51,4 @@ Route::resource('pagos', PagoController::class)->names('pagos')->middleware('aut
 Route::get('pagos/{pago}/invoice', [PagoController::class, 'generateInvoice'])->name('pagos.invoice');
 
 Route::get('reportes', [ReporteController::class, 'index'])->name('reportes')->middleware('auth');
+Route::post('reportes/filtrar', [ReporteController::class, 'filterByMonth'])->name('filtermonth');

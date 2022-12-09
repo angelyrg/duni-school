@@ -15,20 +15,68 @@
         <div class="card ">
 
             <div class="card-header d-flex align-items-center justify-content-between">
-                <h5 class="card-title m-0 me-2">Reporte Pagos</h5>
+                <h5 class="card-title m-0 me-2">Reporte Pagos: @if(isset($fecha_selected)){{ $meses[$fecha_selected-1] }} @else {{ $meses[date('m')-1]}}@endif</h5>
             </div>
 
+            
+            
             <div class="card-body">
+                
+                <div class="row" id="filtrar_pagos">
+                    <form action="{{route('filtermonth')}}" method="post" class="d-flex flex-row align-items-center flex-wrap">
+                        @csrf
+                        <div class="col-md-3">
+                            <div class="row mb-3">
+                                <label class="col-form-label" for="basic-icon-default-fullname">Mes</label>
+                                <div class="input-group input-group-merge">
+                                    <span class="input-group-text"><i class="bx bx-user"></i></span>
+                                    <select name="selected_month" id="selected_month" class="form-select form-select-sm" required>
+                                        @for ($i = 0; $i < count($meses); $i++)
+                                            @if (isset($fecha_selected))
+                                                <option @if( $fecha_selected== $i+1) {{'selected'}}@endif value="{{$i+1}}">{{$meses[$i]}}</option>
+                                            @else
+                                                <option @if(date("m") == $i+1 ){{"selected"}}@endif value="{{$i+1}}">{{$meses[$i]}}</option>
+                                            @endif
+                                        @endfor
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- {{$fecha_selected}} --}}
+    
+    
+                        <div class="col-md-3">
+                            <div class="row mb-3">
+                                <label class="col-form-label" >Opción</label>
+                                <div class="input-group input-group-merge">
+                                    <button type="submit" class="btn btn-sm btn-outline-success">
+                                        <i class='bx bx-filter-alt'></i> Filtrar
+                                    </button>
+                                    @if (isset($nivel))
+                                        <a href="{{route('matriculas.index')}}" class="btn btn-sm btn-outline-warning">
+                                            <i class='bx bx-x'></i>
+                                            Quitar filtro
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
                 <div class="table table-responsive">
                     <table class="table tablesorter " id="example">
                         <thead>
                             <tr class="table-dark">
                                 <th class="text-white">Cod Matrícula</th>
                                 <th class="text-white">Nombre</th>
-                                <th class="text-white">Pagos</th>
-                                <th class="text-white">Deuda</th>
-                                <th class="text-white">Fecha de matrícula</th>
-                                <th class="text-white">Balance</th>
+                                <th class="text-white">Mensualidad</th>
+                                <th class="text-white">Monto pagado</th>
+                                <th class="text-white">Deuda del mes</th>
+                                <th class="text-white">Vencimiento</th>
+                                <th class="text-white">Mora</th>
                                 <th class="text-white">Opciones</th>
                             </tr>
                         </thead>
@@ -37,22 +85,74 @@
                                 <tr>
                                     <td>{{$matricula->cod_matricula}}</td>
                                     <td>{{$matricula->estudiante->nombres_estudiante." ".$matricula->estudiante->apellidos_estudiante}}</td>
-                                    <td>{{"S/ ".($matricula->total - $matricula->deuda).".00"}}</td>
-                                    <td>{{"S/ ".$matricula->deuda}}</td>
-                                    <td>{{ date('d/m/Y', strtotime($matricula->created_at)) }} </td>
+                                    <td>{{"S/ ".$matricula->mensualidad}}</td>
                                     <td>
-                                        <span class="badge bg-label-@if($matricula->deuda > 0){{'danger'}}@else{{'success'}}@endif me-1">
-                                            @if($matricula->deuda > 0)
-                                                DEUDA
-                                            @else
-                                                AL DÍA
+                                        <?php 
+
+                                        $pagado_del_mes = 0;
+
+                                        if (!isset($fecha_selected)){ $fecha_selected = date('m'); }
+
+                                        ?>
+
+                                        {{-- Se obtiene lo pagado en el mes correspondiente --}}
+                                        @foreach ($matricula->pagos as $pago)
+                                            @if ( $pago->concepto == $fecha_selected )
+                                                <?php $pagado_del_mes = $pagado_del_mes + $pago->monto; ?>
+
                                             @endif
+                                        @endforeach
+
+                                        <span class="badge bg-label-info me-1">
+                                            {{ "S/ ".$pagado_del_mes }}
                                         </span>
+                                        
                                     </td>
+                                    <?php 
+
+                                        $dias_mora = 0; 
+
+                                        $now = time(); // or your date as well
+                                        //$your_date = strtotime("2010-01-31");
+                                        $vencimiento = strtotime("2022-".($fecha_selected)."-1");
+                                        
+                                        $dias_mora = round( ($now - $vencimiento) / (60 * 60 * 24)) ;
+
+                                        //echo " -> ".$dias_mora;
+
+                                        
+                                    ?>
+
+                                    <td>
+                                        <?php  $total_deuda_mora = 0;  ?>
+                                        @if ($matricula->mensualidad > $pagado_del_mes )
+                                            <span class="badge bg-label-warning me-1">
+                                                {{ "S/ ".($matricula->mensualidad - $pagado_del_mes) }}
+                                                <?php $total_deuda_mora = $dias_mora * 0.5 ?>
+                                            </span>
+                                        @else
+                                            <span class="badge bg-label-success me-1">
+                                                {{ "S/ ".($matricula->mensualidad - $pagado_del_mes) }}
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td>
+
+                                        @if ( !isset($fecha_selected) )
+                                            {{date('t/m/y')}}
+                                        @else
+                                            {{ date('t/m/y', $vencimiento) }}
+                                        @endif
+                                        
+                                    </td>
+                                    <td>
+                                        {{ "S/ ".($total_deuda_mora) }}
+                                    </td>
+                                    
                                     <td>
                                         @if (count($matricula->pagos) >0 )
                                             <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#modal-info-{{$matricula->id}}">
-                                                <i class='bx bx-list-ul'></i> Detalles de pago
+                                                <i class='bx bx-list-ul'></i> Todos los pagos
                                             </button>
                                             @include('reportes.modal-info')
                                         @else
@@ -86,6 +186,16 @@
             "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
             }
         });
+
+        let mes = $("#selected_month").val();
+        console.log(mes);
+
+    });
+
+    $("#selected_month").on("change", function (){
+        let mes = $("#selected_month").val();
+
+        console.log(mes);
     });
 </script>
 @endsection

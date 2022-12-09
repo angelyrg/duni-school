@@ -25,7 +25,7 @@
                                     <td>
                                          <strong>Sección</strong>
                                     </td>
-                                    <td>{{$matricula->nivel." ".$matricula->grado." ".$matricula->seccion}}</td>
+                                    <td>{{ $matricula->nivel." ".$matricula->grado." ".$matricula->seccion }}</td>
                                 </tr>                               
                                 <tr>
                                     <td>
@@ -68,7 +68,18 @@
                                         <td>{{$pago->num_recibo}}</td>
                                         <td>{{ date('d/m/Y', strtotime($pago->created_at)) }} </td>
                                         <td>{{"S/ ".$pago->monto}}</td>
-                                        <td>{{$pago->concepto}}</td>
+                                        <td>
+                                            @if ($pago->concepto == 0) 
+                                                {{"Matrícula"}}
+
+                                            @elseif ($pago->concepto >= 1 && $pago->concepto <= 12 )
+                                                {{ $meses[$pago->concepto - 1 ] }}
+
+                                            @else
+                                                {{ "Otro" }}
+
+                                            @endif
+                                        </td>
                                         <td>{{$pago->medio_pago}}</td>
                                     </tr>                                     
                                 @endforeach

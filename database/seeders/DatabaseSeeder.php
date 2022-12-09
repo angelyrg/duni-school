@@ -22,8 +22,9 @@ class DatabaseSeeder extends Seeder
             'password' => '$2y$10$v/ij8e6874W/0BrSGszW6O754Ea4dGkFYxs0d2xz4jLRR/6GRaOGa', // password
             'rol' => 'Secretaria' ]);
 
-        \App\Models\Estudiante::factory(10)->create();
-        \App\Models\Apoderado::factory(5)->create();
+        // Crear 10 estudiantes y 5 apoderados aletorios
+        // \App\Models\Estudiante::factory(10)->create();
+        // \App\Models\Apoderado::factory(5)->create();
 
     }
 }

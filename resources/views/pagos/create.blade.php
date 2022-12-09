@@ -98,8 +98,6 @@
                             </div>
                         </div>
 
-
-
                         <div id="detalles-pago" hidden >
                             <div class="divider divider-info">
                                 <div class="divider-text mb-2 text-info" >
@@ -107,7 +105,6 @@
                                 </div>
                             </div>
 
-    
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="row mb-3">
@@ -116,9 +113,9 @@
                                             <span class="input-group-text"><i class="bx bx-user"></i></span>
                                             <select name="concepto" id="concepto" class="form-select" required>
                                                 <option selected disabled value="">Seleccione...</option>                                                    
-                                                <option>Matrícula</option>
+                                                <option value="0">Matrícula</option>
                                                 <option>Mensualidad</option>
-                                                <option>Otro</option>
+                                                <option value="13">Otro</option>
                                             </select>
                                         </div>
                                     </div>
@@ -150,6 +147,34 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="row mb-3" id="mensualidad_select" hidden>
+                                        <label class="col-form-label" >Mensualidad a pagar</label>
+                                        <div class="input-group input-group-merge">
+                                            <span class="input-group-text"><i class="bx bx-calendar"></i></span>
+                                            <select name="mes_pagado" id="mes_pagado" class="form-select" required>
+                                                <option value="">Seleccione...</option>                                                    
+                                                @for ($i = 0; $i < count($meses); $i++)
+                                                    <option @if(date("m") == $i+1 ){{"selected"}}@endif value="{{$i+1}}">{{$meses[$i]}}</option>
+                                                @endfor
+                                            </select>
+                                        </div>  
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="row mb-3 " id="num_ticket" hidden>
+                                        <label class="col-form-label" >Número de ticket</label>
+                                        <div class="input-group input-group-merge">
+                                            <span class="input-group-text"><i class='bx bxs-user-detail'></i></span>
+                                            <input type="text" class="form-control" name="numero_ticket">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         
@@ -201,6 +226,32 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     
     <script src="{{ asset("assets/js/search-matricula.js") }}"></script>
+
+    <script>
+        
+
+        $("#medio_pago").on('change', function(){
+
+            var medio_pago = $('#medio_pago').val();
+            if (medio_pago == "Caja de la IE"){
+                $('#num_ticket').attr("hidden", true);
+            }else{
+                $('#num_ticket').attr("hidden", false);
+            }
+
+        });
+        
+        $("#concepto").on('change', function(){
+
+            var concepto = $('#concepto').val();
+            if (concepto == "Mensualidad"){
+                $('#mensualidad_select').attr("hidden", false);
+            }else{
+                $('#mensualidad_select').attr("hidden", true);
+            }
+
+        });
+    </script>
 
 
 @endsection

@@ -118,7 +118,7 @@
                                         <label class="col-form-label" >Sección</label>
                                         <div class="input-group input-group-merge">
                                             <span class="input-group-text"><i class='bx bxs-user-detail'></i></span>
-                                            <input type="text" name="seccion" class="form-control" placeholder="A" required/>
+                                            <input type="text" name="seccion" class="form-control" placeholder="A" maxlength="50" required/>
                                         </div>
                                     </div>
                                 </div>

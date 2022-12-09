@@ -35,7 +35,6 @@
                                 <th class="text-white">Concepto</th>
                                 <th class="text-white">Medio de pago</th>
                                 <th class="text-white">Monto</th>
-                                
                             </tr>
                         </thead>
                         <tbody>
@@ -44,11 +43,25 @@
                                 <?php $i++; ?>
                                 <tr>
                                     <td>{{$i}}</td>
-                                    <td><a href="{{route('pagos.invoice', $pago->id)}}" target="_blank">{{$pago->id}}</a></td>
+                                    <td>
+                                        <a href="{{route('pagos.invoice', $pago->id)}}" target="_blank" class="btn btn-sm rounded-pill btn-outline-dark">
+                                            <i class='bx bxs-download'></i> {{$pago->id}}
+                                        </a>
+                                    </td>
                                     <td>{{ date('d/m/Y', strtotime($pago->created_at)) }} </td>
                                     <td>{{$pago->matricula->cod_matricula}}</td>
                                     <td>{{$pago->matricula->estudiante->nombres_estudiante." ".$pago->matricula->estudiante->apellidos_estudiante}}</td>
-                                    <td>{{$pago->concepto}}</td>
+                                    <td>
+                                        @if ($pago->concepto == 0)
+                                            {{"Matrícula"}}
+
+                                        @elseif($pago->concepto >= 1 && $pago->concepto <= 12)
+                                            {{"Mensualidad (".substr($meses[$pago->mes_pago-1], 0, 3).")"}}
+
+                                        @elseif($pago->concepto > 12)
+                                            {{"Otro"}}
+                                        @endif
+                                    </td>
                                     <td>{{$pago->medio_pago}}</td>
                                     <td>{{"S/ ".$pago->monto}}</td>
                                 </tr>

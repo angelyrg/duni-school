@@ -26,7 +26,7 @@ class CreateMatriculasTable extends Migration
             $table->string('cod_matricula', 15);
             $table->string('nivel', 10);
             $table->string('grado', 10);
-            $table->string('seccion', 10);
+            $table->string('seccion', 50);
             
             $table->string('situacion', 10);
             $table->string('procedencia', 50);

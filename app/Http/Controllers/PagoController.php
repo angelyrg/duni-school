@@ -17,15 +17,19 @@ use LaravelDaily\Invoices\Classes\Party;
 class PagoController extends Controller
 {
     use DeudaTrait;
+    public $meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+
 
     public function index(){
+        $meses = $this->meses;
         $pagos = Pago::all();
-        return view('pagos.index', compact('pagos'));
+        return view('pagos.index', compact('pagos', 'meses'));
     }
 
     public function create(){
+        $meses = $this->meses;
         $bancos = Banco::all();
-        return view("pagos.create", compact('bancos'));
+        return view("pagos.create", compact('bancos', 'meses'));
     }
 
     public function store(Request $request){
@@ -33,7 +37,20 @@ class PagoController extends Controller
         $pago = new Pago();
         $pago->matricula_id = $request->matricula_id;
         $pago->num_recibo = $today[0];
-        $pago->concepto = $request->concepto;
+
+        //$concepto = $request->concepto;
+
+        if ($request->concepto == "Mensualidad"){
+            $concepto = date('m');
+        }else{
+            $concepto = $request->concepto;
+        }
+        
+        $pago->concepto = $concepto;
+        $pago->mes_pago = $request->mes_pagado; //Mes de pago
+        $pago->ticket_banco = $request->numero_ticket; //Num ticket
+
+
         $pago->medio_pago = $request->medio_pago;
         $pago->monto = $request->monto;
         $pago->save();
@@ -41,7 +58,6 @@ class PagoController extends Controller
         $this->updateDeuda($request->matricula_id, $request->monto);
 
         return redirect()->route('pagos.index')->with('success', 'Pago registrado exitosamente.');
-
     }
 
 
@@ -66,8 +82,17 @@ class PagoController extends Controller
             ],
         ]);
 
+        $concepto = "";
+        if ($pago->concepto == 0){
+            $concepto = "Matrícula";
+        }else if($pago->concepto > 0 && $pago->concepto < 13){
+            $concepto = "Mensualidad: ".$this->meses[$pago->concepto - 1];
+        }else{
+            $concepto = "Otro";
+        }
+
         $items = [
-            (new InvoiceItem())->title($pago->concepto)->pricePerUnit($pago->monto)->quantity(1)
+            (new InvoiceItem())->title($concepto)->pricePerUnit($pago->monto)->quantity(1)
         ];
 
         $invoice = Invoice::make('Factura')

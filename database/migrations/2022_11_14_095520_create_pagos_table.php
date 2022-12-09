@@ -24,6 +24,9 @@ class CreatePagosTable extends Migration
             $table->string('concepto', 20);
             $table->string('medio_pago', 20);
 
+            $table->integer('mes_pago')->nullable();
+            $table->string('ticket_banco', 50)->nullable();
+
             $table->timestamps();
         });
     }
