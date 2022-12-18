@@ -90,8 +90,11 @@
                         </div>
                     </form>
                 </div>
+                <a type="button" class="btn btn-outline-dark btn-sm" onclick="PrintDiv();">
+                    <i class='bx bxs-file-pdf'></i> Descargar
+                </a>
 
-                <div class="table table-responsive">
+                <div class="table table-responsive" id="table_to_print">
                     <table class="table tablesorter " id="example">
                         <thead class="table-dark">
                             <tr >
@@ -102,9 +105,7 @@
                                 <th class="text-white">Grado</th>
                                 <th class="text-white">Sección</th>
                                 <th class="text-white">Situación</th>
-                                {{-- <th class="text-white">Apoderado</th> --}}
-                                {{-- <th class="text-white">Balance</th> --}}
-                                <th class="text-white">Acciones</th>
+                                <th class="text-white" id="hide_in_print">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -123,18 +124,8 @@
                                     <td>{{$matricula->grado}}</td>
                                     <td>{{$matricula->seccion}}</td>
                                     <td>{{$matricula->situacion}}</td>
-                                    {{-- <td>{{$matricula->apoderado->nombres_apoderado}}</td> --}}
-                                    {{-- <td>
-                                        <span class="badge bg-label-@if($matricula->deuda > 0){{'danger'}}@else{{'success'}}@endif me-1">
-                                            @if($matricula->deuda > 0)
-                                                <i class='bx bxs-info-circle'></i>
-                                            @else
-                                                <i class='bx bxs-check-circle'></i>
-                                            @endif
-                                            {{"S/ ".$matricula->deuda}}
-                                        </span>
-                                    </td> --}}
-                                    <td>                                  
+
+                                    <td id="hide_in_print">                                  
                                         <a href="{{route('pagos.create')}}" class="btn btn-sm btn-outline-warning"><i class='bx bx-money'></i></a>
                                         <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$matricula->id}}">
                                             <i class='bx bx-trash'></i>
@@ -242,5 +233,36 @@
 
 </script>
 
+<script type="text/javascript">     
+    function PrintDiv() {    
+
+        
+        var table = $('#example').DataTable();
+        table.destroy();
+        
+        var divToPrint = document.getElementById('table_to_print');
+        
+        $('*[id*=hide_in_print]:visible').each(function() {
+            $(this).attr("hidden",true);
+        });
+        
+        
+        var popupWin = window.open('', '_blank', 'width=300,height=300');
+        popupWin.document.open();
+        
+        h1 = "<h4>Matrículas</h4>";
+        popupWin.document.write('<html><body onload="window.print()">' + h1 + divToPrint.innerHTML + '</html>');
+            
+            
+        $('*[id*=hide_in_print]:hidden').each(function() {
+            $(this).attr("hidden",false);
+        });
+        
+        $('#example').DataTable();
+
+        popupWin.document.close();
+
+    }
+</script>
     
 @endsection

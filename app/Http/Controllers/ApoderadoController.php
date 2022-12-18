@@ -35,6 +35,7 @@ class ApoderadoController extends Controller
         $user->nombres_apoderado = $request->nombres_apoderado;
         $user->apellidos_apoderado = $request->apellidos_apoderado;
         $user->celular_apoderado = $request->celular_apoderado;
+        //Auth::user()->id;
         $user->save();
 
         return redirect()->route('apoderados.index')->with('success', 'Apoderado '.$request->nombres_apoderado.' agregado exitosamente.');

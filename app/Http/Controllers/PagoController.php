@@ -60,6 +60,22 @@ class PagoController extends Controller
         return redirect()->route('pagos.index')->with('success', 'Pago registrado exitosamente.');
     }
 
+    public function update(Request $request, Pago $pago){
+        $this->validate($request, [
+            'monto' => 'required',
+        ]);
+
+        $pago->monto = $request->monto;
+        $pago->save();
+        
+        return redirect()->route('pagos.index')->with('success', 'Monto del pago actualizado exitosamente.');
+    }
+
+    public function destroy(Pago $pago){
+        $pago->delete();        
+        return redirect()->route('pagos.index')->with('success', 'Registro eliminado exitosamente.'); 
+
+    }
 
 
     public function generateInvoice(Pago $pago){

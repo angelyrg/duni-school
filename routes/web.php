@@ -39,6 +39,7 @@ Route::post('logout', [LoginController::class, 'logout'] )->name('logout');
 Route::get('home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
 Route::resource('usuarios', UserController::class)->names('users')->middleware('auth.admin');
+
 Route::resource('estudiantes', EstudianteController::class)->names('estudiantes')->middleware('auth');
 Route::post('estudiantes/getStudent', [EstudianteController::class, 'getStudentbyDNI']);
 Route::resource('apoderados', ApoderadoController::class)->names('apoderados')->middleware('auth');
@@ -51,4 +52,5 @@ Route::resource('pagos', PagoController::class)->names('pagos')->middleware('aut
 Route::get('pagos/{pago}/invoice', [PagoController::class, 'generateInvoice'])->name('pagos.invoice');
 
 Route::get('reportes', [ReporteController::class, 'index'])->name('reportes')->middleware('auth');
+
 Route::post('reportes/filtrar', [ReporteController::class, 'filterByMonth'])->name('filtermonth');

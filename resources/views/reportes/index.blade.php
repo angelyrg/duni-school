@@ -16,13 +16,17 @@
 
             <div class="card-header d-flex align-items-center justify-content-between">
                 <h5 class="card-title m-0 me-2">Reporte Pagos: @if(isset($fecha_selected)){{ $meses[$fecha_selected-1] }} @else {{ $meses[date('m')-1]}}@endif</h5>
+                <div>
+                    <a type="button" class="btn btn-outline-dark btn-sm" onclick="PrintDiv();">
+                        <i class='bx bxs-file-pdf'></i> Descargar
+                    </a>
+                </div>
             </div>
 
-            
-            
+
             <div class="card-body">
-                
-                <div class="row" id="filtrar_pagos">
+                <div class="row col d-flex" id="filtrar_pagos">
+
                     <form action="{{route('filtermonth')}}" method="post" class="d-flex flex-row align-items-center flex-wrap">
                         @csrf
                         <div class="col-md-3">
@@ -44,9 +48,6 @@
                             </div>
                         </div>
 
-                        {{-- {{$fecha_selected}} --}}
-    
-    
                         <div class="col-md-3">
                             <div class="row mb-3">
                                 <label class="col-form-label" >Opción</label>
@@ -65,39 +66,41 @@
                         </div>
                     </form>
                 </div>
+                
 
-                <div class="table table-responsive">
+
+
+                <div class="table table-responsive" id="table_to_print">
                     <table class="table tablesorter " id="example">
                         <thead>
                             <tr class="table-dark">
                                 <th class="text-white">Cod Matrícula</th>
+                                <th class="text-white">Grado</th>
                                 <th class="text-white">Nombre</th>
                                 <th class="text-white">Mensualidad</th>
                                 <th class="text-white">Monto pagado</th>
                                 <th class="text-white">Deuda del mes</th>
                                 <th class="text-white">Vencimiento</th>
                                 <th class="text-white">Mora</th>
-                                <th class="text-white">Opciones</th>
+                                <th class="text-white" id="hide_in_print">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($matriculas as $matricula)
                                 <tr>
                                     <td>{{$matricula->cod_matricula}}</td>
+                                    <td>{{$matricula->grado." ".$matricula->nivel}}</td>
                                     <td>{{$matricula->estudiante->nombres_estudiante." ".$matricula->estudiante->apellidos_estudiante}}</td>
                                     <td>{{"S/ ".$matricula->mensualidad}}</td>
                                     <td>
                                         <?php 
 
                                         $pagado_del_mes = 0;
-
                                         if (!isset($fecha_selected)){ $fecha_selected = date('m'); }
-
                                         ?>
-
                                         {{-- Se obtiene lo pagado en el mes correspondiente --}}
                                         @foreach ($matricula->pagos as $pago)
-                                            @if ( $pago->concepto == $fecha_selected )
+                                            @if ( $pago->mes_pago == $fecha_selected )
                                                 <?php $pagado_del_mes = $pagado_del_mes + $pago->monto; ?>
 
                                             @endif
@@ -111,16 +114,12 @@
                                     <?php 
 
                                         $dias_mora = 0; 
-
                                         $now = time(); // or your date as well
-                                        //$your_date = strtotime("2010-01-31");
-                                        $vencimiento = strtotime("2022-".($fecha_selected)."-1");
-                                        
-                                        $dias_mora = round( ($now - $vencimiento) / (60 * 60 * 24)) ;
-
-                                        //echo " -> ".$dias_mora;
-
-                                        
+                                        $vencimiento = strtotime("2022-".($fecha_selected+1)."-1");
+                                        $dias_mora = round( ($now - $vencimiento ) / (60 * 60 * 24)) ;
+                                        if ($dias_mora > 356){
+                                            $dias_mora = 0;
+                                        }
                                     ?>
 
                                     <td>
@@ -137,7 +136,6 @@
                                         @endif
                                     </td>
                                     <td>
-
                                         @if ( !isset($fecha_selected) )
                                             {{date('t/m/y')}}
                                         @else
@@ -149,7 +147,7 @@
                                         {{ "S/ ".($total_deuda_mora) }}
                                     </td>
                                     
-                                    <td>
+                                    <td id="hide_in_print">
                                         @if (count($matricula->pagos) >0 )
                                             <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#modal-info-{{$matricula->id}}">
                                                 <i class='bx bx-list-ul'></i> Todos los pagos
@@ -188,14 +186,44 @@
         });
 
         let mes = $("#selected_month").val();
-        console.log(mes);
 
     });
 
     $("#selected_month").on("change", function (){
         let mes = $("#selected_month").val();
 
-        console.log(mes);
     });
+</script>
+
+<script type="text/javascript">     
+    function PrintDiv() {    
+
+        
+        var table = $('#example').DataTable();
+        table.destroy();
+        
+        var divToPrint = document.getElementById('table_to_print');
+        
+        $('*[id*=hide_in_print]:visible').each(function() {
+            $(this).attr("hidden",true);
+        });
+        
+        
+        var popupWin = window.open('', '_blank', 'width=300,height=300');
+        popupWin.document.open();
+        let mes = $("#selected_month").val();
+        h1 = "<h4>Pagos correspondiente al mes: " + mes + "</h4>";
+        popupWin.document.write('<html><body onload="window.print()">' + h1 + divToPrint.innerHTML + '</html>');
+            
+            
+        $('*[id*=hide_in_print]:hidden').each(function() {
+            $(this).attr("hidden",false);
+        });
+        
+        $('#example').DataTable();
+
+        popupWin.document.close();
+
+    }
 </script>
 @endsection

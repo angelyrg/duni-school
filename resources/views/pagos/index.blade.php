@@ -35,6 +35,9 @@
                                 <th class="text-white">Concepto</th>
                                 <th class="text-white">Medio de pago</th>
                                 <th class="text-white">Monto</th>
+                                @if (Auth::user()->rol == "Administrador")
+                                    <th class="text-white">Opciones</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -52,18 +55,30 @@
                                     <td>{{$pago->matricula->cod_matricula}}</td>
                                     <td>{{$pago->matricula->estudiante->nombres_estudiante." ".$pago->matricula->estudiante->apellidos_estudiante}}</td>
                                     <td>
-                                        @if ($pago->concepto == 0)
+                                        @if ($pago->mes_pago == 0)
                                             {{"Matrícula"}}
 
-                                        @elseif($pago->concepto >= 1 && $pago->concepto <= 12)
+                                        @elseif($pago->mes_pago >= 1 && $pago->mes_pago <= 12)
                                             {{"Mensualidad (".substr($meses[$pago->mes_pago-1], 0, 3).")"}}
 
-                                        @elseif($pago->concepto > 12)
+                                        @elseif($pago->mes_pago > 12)
                                             {{"Otro"}}
                                         @endif
                                     </td>
                                     <td>{{$pago->medio_pago}}</td>
                                     <td>{{"S/ ".$pago->monto}}</td>
+                                    @if (Auth::user()->rol == "Administrador")
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modal-edit-{{$pago->id}}">
+                                                <i class='bx bx-edit-alt'></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$pago->id}}">
+                                                <i class='bx bx-trash'></i>
+                                            </button>
+                                            @include('pagos.modal-edit')
+                                            @include('pagos.modal-delete')
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>
